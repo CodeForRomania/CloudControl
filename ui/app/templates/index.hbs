@@ -1,0 +1,20 @@
+{{! This file is a modification of html from https://github.com/almasaeed2010/AdminLTE}}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {{t-tr 'general.dashboard'}}
+    <small>{{t-tr 'general.version'}} {{t-tr 'general.appVersion'}}</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i>{{t-tr 'general.home'}}</a></li>
+    <li class="active">{{t-tr 'general.dashboard'}}</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <!-- Info boxes -->
+  {{partial 'dashboard/dashboard-info-boxes'}}
+
+
+</section><!-- /.content -->

@@ -1,0 +1,85 @@
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+        </div>
+        <div class="pull-left info">
+            <p>Alexander Pierce</p>
+
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+    <!-- search form -->
+    <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search..." />
+            <span class="input-group-btn">
+        <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+      </span>
+        </div>
+    </form>
+    <!-- /.search form -->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <li class="header">{{t-tr 'sidebar.mainNavigation'}}</li>
+        <li>
+            {{#link-to 'index'}}
+            <i class="fa fa-home"></i>  <span>{{t-tr 'general.home'}}</span>
+            {{/link-to}}
+        </li>
+        <!-- tools Menu -->
+        <li class="treeview">
+            {{#link-to 'tools'}}
+            <i class="fa fa-gears"></i>  <span>{{t-tr 'general.tools'}}</span>
+            <i class="fa fa-angle-left pull-right"></i>
+            {{/link-to}}
+            <ul class="treeview-menu">
+                <li>
+                    {{#link-to 'settings'}}
+                    <i class="fa fa-gears"></i>  <span>{{t-tr 'general.settings'}}</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                    {{/link-to}}
+                    <ul class="treeview-menu">
+                        <li>{{#link-to 'settings.amazon'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.amazon'}}{{/link-to}}</li>
+                        <li>{{#link-to 'settings.azure'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.azure'}}{{/link-to}}</li>
+                        <li>{{#link-to 'settings.digitalOcean'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.digitalOcean'}}{{/link-to}}</li>
+                        <li>{{#link-to 'settings.hp'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.HP'}}{{/link-to}}</li>
+                        <li>{{#link-to 'settings.joyent'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.joyent'}}{{/link-to}}</li>
+                        <li>{{#link-to 'settings.openstack'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.openstack'}}{{/link-to}}</li>
+                        <li>{{#link-to 'settings.rackspace'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.settings.rackspace'}}{{/link-to}}</li>
+                    </ul>
+                </li>
+                <li>
+                    {{#link-to 'users'}}
+                        <i class="fa fa-users"></i>  <span>{{t-tr 'general.users'}}</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    {{/link-to}}
+                    <ul class="treeview-menu">
+                        <li>{{#link-to 'users.list'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.users.list'}}{{/link-to}}</li>
+                        <li>{{#link-to 'users.groups'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.users.groups'}}{{/link-to}}</li>
+                        <li>{{#link-to 'users.roles'}}<i class="fa fa-gear"></i>{{t-tr 'sidebar.users.roles'}}{{/link-to}}</li>
+                    </ul>
+                </li>
+                <li>
+                    {{#link-to 'logs'}}
+                        <i class="fa fa-files-o"></i>  <span>{{t-tr 'general.logs'}}</span>
+                    {{/link-to}}
+
+                </li>
+            </ul>
+        </li>
+        <!-- end tools menu -->
+
+
+        <li>{{#link-to 'comingsoon'}}<i class="fa fa-book"></i> Documentation{{/link-to}}</li>
+        <li class="header">LABELS</li>
+        <li><a href="#"><i class="fa fa-circle-o text-danger"></i> Important</a>
+        </li>
+        <li><a href="#"><i class="fa fa-circle-o text-warning"></i> Warning</a>
+        </li>
+        <li><a href="#"><i class="fa fa-circle-o text-info"></i> Information</a>
+        </li>
+    </ul>
+</section>
