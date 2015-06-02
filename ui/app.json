@@ -1,10 +1,10 @@
 {
-  "name": "Ember Admin Dashboard",
-  "description": "An Ember-Cli Project - Starter admin template based on AdminLTE. Has an example real data dashboard using twitter stream.",
-  "repository": "https://github.com/shaialon/ember-admin-dashboards",
+  "name": "CloudControl Dashboard",
+  "description": "A dashboard to manage multi cloud infrastructure",
+  "repository": "https://github.com/CodeForRomania/CloudControl",
   "logo": "http://upload.wikimedia.org/wikipedia/en/6/69/Ember.js_Logo_and_Mascot.png",
-  "keywords": ["Ember.js", "AdminLTE", "Admin template", "Twitter stream"],
+  "keywords": ["Ember.js", "AdminLTE", "CloudControl", "AdminCloud"],
   "env": {
-    "BUILDPACK_URL": "https://github.com/tonycoco/heroku-buildpack-ember-cli"
+    "BUILDPACK_URL": ""
   }
 }

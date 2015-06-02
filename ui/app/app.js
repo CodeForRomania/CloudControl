@@ -3,17 +3,13 @@ import Ember from 'ember';
 import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
 import config from './config/environment';
-import DS from 'ember-data';
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
-
+Ember.deprecate = function() {};
 var App = Ember.Application.extend({
     modulePrefix: config.modulePrefix,
     podModulePrefix: config.podModulePrefix,
-    Resolver: Resolver,
-    Store: DS.Store.extend({
-        adapter: DS.RESTAdapter
-    })
+    Resolver: Resolver
 });
 
 loadInitializers(App, config.modulePrefix);

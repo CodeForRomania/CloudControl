@@ -13,6 +13,11 @@
     "header": {
         "toggleNavigation": "Toggle navigation"
     },
+    "login": {
+        "title": "Sign in to start your session",
+        "rememberMe": "Remember Me",
+        "signIn": "Sign In"
+    },
     "sidebar": {
         "mainNavigation": "MAIN NAVIGATION",
         "settings": {
@@ -28,12 +33,12 @@
             "list": "User list",
             "groups": "Groups",
             "roles": "Roles"
-        },
-        "footer": {
-            "buildByUrl": "http://codefor.ro",
-            "buildBy": "CADA",
-            "copyright": "Copyright CodeforRo",
-            "copyrightUrl": "http://codefor.ro"
         }
+    },
+    "footer": {
+        "buildByUrl": "http://codefor.ro",
+        "buildBy": "CADA",
+        "copyright": "Copyright CodeforRo",
+        "copyrightUrl": "http://codefor.ro"
     }
 }
