@@ -28,12 +28,12 @@
             "list": "User list",
             "groups": "Groups",
             "roles": "Roles"
-        },
-        "footer": {
-            "buildByUrl": "http://codefor.ro",
-            "buildBy": "CADA",
-            "copyright": "Copyright CodeforRo",
-            "copyrightUrl": "http://codefor.ro"
         }
+    },
+    "footer": {
+        "buildByUrl": "http://codefor.ro",
+        "buildBy": "CADA",
+        "copyright": "Copyright CodeforRo",
+        "copyrightUrl": "http://codefor.ro"
     }
 }
