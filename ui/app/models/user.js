@@ -1,8 +1,11 @@
 import DS from 'ember-data';
 
-export default DS.Model.extend({
+
+var User = DS.Model.extend({
     email: DS.attr('String'),
-    name: DS.attr('String'),
-    created: ddDS.attr('Date'),
+    password: DS.attr('String'),
+    profile: DS.belongsTo('profile'),
+    groups: DS.hasMany('group')
 });
 
+export default User;
