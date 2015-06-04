@@ -13,6 +13,11 @@
     "header": {
         "toggleNavigation": "Toggle navigation"
     },
+    "login": {
+        "title": "Sign in to start your session",
+        "rememberMe": "Remember Me",
+        "signIn": "Sign In"
+    },
     "sidebar": {
         "mainNavigation": "MAIN NAVIGATION",
         "settings": {

@@ -5,11 +5,13 @@ var Router = Ember.Router.extend({
     location: config.locationType
 });
 
-export
-default Router.map(function() {
+Router.map(function() {
     this.route('index', {
         path: '/'
     });
+
+    this.route('login');
+    this.route('signup');
 
     this.route('logs');
     this.route('widgets');
@@ -42,3 +44,22 @@ default Router.map(function() {
 
 });
 
+Ember.Route.reopen({
+
+  activate() {
+    var cssClass = this.toCssClass();
+    if (cssClass !== 'application') {
+      Ember.$('body').addClass(cssClass);
+    }
+  },
+
+  deactivate() {
+    Ember.$('body').removeClass(this.toCssClass());
+  },
+
+  toCssClass() {
+    return this.routeName.replace(/\./g, '-').dasherize();
+  }
+
+});
+export default Router;
