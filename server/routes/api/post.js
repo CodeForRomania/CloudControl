@@ -2,7 +2,6 @@
 var Post = require('../../models/post');
 
 module.exports.addPost = function(req, res) {
-    console.log(req.body);
    res.end();
 };
 

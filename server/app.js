@@ -3,16 +3,30 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
 
 
 var app = express();
-var api = require('./routes/api');
+var api = require('./routes/api')(passport);
 
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
+}));
+
+app.set('trust proxy', 1) // trust first proxy
+
+app.use(passport.initialize());
+app.use(passport.session()); 
+
+app.use(session({
+  secret: 'CCDash',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
 }));
 
 var allowCrossDomain = function(req, res, next) {  
