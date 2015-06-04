@@ -1,12 +1,19 @@
 // TODO: This is a hack... need a better way to override original template may be needed.
 .skin-blue{
-	.treeview-menu>li>a.active{
-	  color: #FFF;
-	}
-	.sidebar-menu>li>a.active {
-	  color: #FFF;
-	  background: #1E282C;
-	  border-left-color: #3C8DBC;
-	}
+    .treeview-menu>li>a.active{
+      color: #FFF;
+    }
+    .sidebar-menu>li>a.active {
+      color: #FFF;
+      background: #1E282C;
+      border-left-color: #3C8DBC;
+    }
+}
+.login-page, .register-page {
+  background: #000 url(/dist/img/bgnoise.png);
+}
+
+#loading.row {
+  padding-top: 2em;
 }
 
