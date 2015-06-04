@@ -13,7 +13,7 @@ var User = sequelize.define('User', {
 
 User.sync();
 
-var user = User.create({ email: "admin@admin.com", password: "ipasu" });
+var user = User.create({ email: "admin@admin.com", password: "password" });
 
 module.exports = User;
 

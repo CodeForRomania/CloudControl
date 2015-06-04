@@ -14,8 +14,8 @@ module.exports = function(passport) {
             Auth.logout();
         })
         .post('/login', function(req, res, next) {
-            var a = Auth.login(req.body);
-                a.then(function(err, validated) {
+            Auth.login(req.body)
+                .then(function(err, validated) {
                     console.log("auth ersolved");
                     if (err) {
                         next(err);
@@ -23,7 +23,6 @@ module.exports = function(passport) {
                         res.end("OK");
                     }
                 }, function(err) {
-                    console.log(err);
                     throw err;
                 }, function(notify) {
                     console.log(notify);
