@@ -1,50 +1,15 @@
 var express = require('express');
 var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
 var passport = require('passport');
+var setupApp = require('./setup-application');
 
 var Auth = require('./middlewares/auth')(passport);
-console.log(Auth);
-
 
 var app = express();
+app = setupApp(app, passport);
+
 var api = require('./routes/api');
 
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
-app.set('trust proxy', 1); // trust first proxy
-
-
-app.use(session({
-    secret: 'CCDash'
-}));
-
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, Content-Length, X-Requested-With');
-
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.sendStatus(200);
-    } else {
-        next();
-    }
-};
-
-app.use(cookieParser());
-app.use(allowCrossDomain);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // api calls 
 app.use('/login', Auth.login);
