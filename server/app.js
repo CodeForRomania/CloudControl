@@ -29,6 +29,11 @@ passport.deserializeUser(function(id, done) {
 
 // Use local strategy to create user account
 passport.use(new LocalStrategy(
+    {
+        usernameField: 'username',
+        passwordField: 'password',
+        //passReqToCallback: true
+    },
     function(username, password, done) {
         User.find({
             where: {
@@ -65,12 +70,7 @@ app.set('trust proxy', 1); // trust first proxy
 
 
 app.use(session({
-    secret: 'CCDash',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: true
-    }
+    secret: 'CCDash'
 }));
 
 var allowCrossDomain = function(req, res, next) {
@@ -99,15 +99,19 @@ app.use('/login', function(req, res, next) {
             return next(err);
         }
         if (!user) {
-            res.send(info.message);
+            return next(info.message);
         }
         req.logIn(user, function(err) {
             if (err) {
                 return next(err);
             }
-            res.redirect('/api');
+            res.sendStatus(200);
         });
     })(req, res, next);
+});
+app.use('/logout', function(req, res) {
+    req.logout();
+    res.sendStatus(200);
 });
 
 app.use('/api', ensureAuthenticated, api);
@@ -125,7 +129,14 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        res.sendStatus(err.status || 500);
+        if (err) {
+            err = {
+                error: err
+            };
+            res.json(err);
+        } else {
+            res.sendStatus(err.status || 500);
+        }
     });
 }
 
@@ -136,6 +147,7 @@ app.use(function(err, req, res, next) {
 });
 
 function ensureAuthenticated(req, res, next) {
+    console.log('middleware');
     if (req.isAuthenticated()) {
         return next();
     } else {
