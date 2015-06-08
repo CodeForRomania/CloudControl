@@ -3,12 +3,15 @@ var path = require('path');
 var passport = require('passport');
 var setupApp = require('./setup-application');
 
+
 var Auth = require('./middlewares/auth')(passport);
 
 var app = express();
 app = setupApp(app, passport);
 
-var api = require('./routes/api');
+app.locals.db = require('./database/');
+
+var api = require('./routes/api')(app);
 
 
 // api calls 

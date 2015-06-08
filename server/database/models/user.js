@@ -1,30 +1,29 @@
-var Sequelize = require('sequelize'),
-    DataTypes = Sequelize;
+'use strict';
 
-var sequelize = new Sequelize("ccDashDB", "CC", "CCDash", {
-  dialect: 'sqlite',
-  storage: "database/db/database.sqlite"
-});
-
-var User = sequelize.define('User', {
-  email: DataTypes.STRING,
-  password: DataTypes.STRING
-});
-
-User.sync();
-
-var user = User.create({ email: "admin@admin.com", password: "password" });
-
-module.exports = User;
-
-//import DS from 'ember-data';
-
-
-//var User = DS.Model.extend({
-    //email: DS.attr('String'),
-    //password: DS.attr('String'),
-    //profile: DS.belongsTo('profile'),
-    //groups: DS.hasMany('group')
-//});
-
-//export default User;
+module.exports = function(sequelize, DataTypes) {
+    return sequelize.define('user', {
+        user_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        email: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+        }
+    }, {
+        tableName: 'user'
+    });
+};

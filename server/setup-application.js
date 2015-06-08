@@ -16,7 +16,9 @@ module.exports = function(app, passport) {
 
 
     app.use(session({
-        secret: 'CCDash'
+        secret: 'CCDash',
+        resave: true,
+        saveUninitialized: true
     }));
 
 

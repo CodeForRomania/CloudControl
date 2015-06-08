@@ -1,18 +1,31 @@
-import DS from 'ember-data';
-
-var Profile = DS.Model.extent({
-    name: DS.attr('String'),
-    avatar: DS.attr('String'),
-    user: DS.belongsTo('user'),
-    verified: DS.attr('Boolean', {
-        defaultValue: false
-    }),
-    updated: DS.attr('Date', {
-        defaultValue: new Date()
-    }),
-    created: DS.attr('Date', {
-        defaultValue: new Date()
-    })
-});
-
-export default Profile;
+"use strict";
+module.exports = function(sequelize, DataTypes) {
+    return sequelize.define('profile', {
+        profile_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        name: {
+            type: DataTypes.TEXT
+        },
+        avatar: {
+            type: DataTypes.TEXT
+        },
+        verified: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+        }
+    }, {
+        tableName: 'profile'
+    });
+};

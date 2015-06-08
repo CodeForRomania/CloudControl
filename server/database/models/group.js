@@ -1,10 +1,24 @@
-import DS from 'ember-data';
+"use strict";
+module.exports = function(sequelize, DataTypes) {
+    return sequelize.define('group', {
+        group_id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        name: {
+            type: DataTypes.TEXT
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+        }
+    }, {
+        tableName: 'group'
+    });
+};
 
-var Group = DS.Model.extent({
-    name: DS.attr('String'),
-    user: DS.belongsTo('user'),
-    created: DS.attr('Date', {
-        defaultValue: new Date()
-    })
-});
-export default Group;
