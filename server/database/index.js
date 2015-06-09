@@ -8,7 +8,7 @@ var Sequelize = require('sequelize'),
         port: 1200,
         define: {
             // don't add the timestamp attributes (updatedAt, createdAt)
-            timestamps: false,
+            timestamps: true,
             // don't use camelcase for automatically added attributes but underscore style
             // so updatedAt will be updated_at
             underscored: true,
@@ -65,34 +65,7 @@ models.forEach(function(model) {
     m.Role.sync();
     m.Group.sync();
 
-    m.User.create({
-        email: "admin@admin.com",
-        password: "password"
-    }).then(function(user) {
-        m.Profile.create({
-            user_id: user.user_id,
-            name: "Razvan Moraru",
-            avatar: "http://avatar.com"
-        });
-    });
 
-    [{
-        name: 'master'
-    }, {
-        name: 'admin'
-    }, {
-        user: 'user'
-    }].forEach(function(role) {
-        m.Role.create(role);
-    });
-
-    [{
-        name: 'developers'
-    }, {
-        name: 'ops'
-    }].forEach(function(group) {
-        m.Group.create(group);
-    });
 
 })(module.exports);
 

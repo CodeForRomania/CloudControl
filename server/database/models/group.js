@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         name: {
             type: DataTypes.TEXT
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: Date.now()
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: Date.now()
         }
     }, {
         tableName: 'group'

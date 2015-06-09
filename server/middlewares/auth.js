@@ -1,15 +1,22 @@
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('../database//models/user');
+var User;
 
-module.exports = function(passport) {
+module.exports = function(passport, app) {
+    var User = app.locals.db.User;
+
+    User.create({
+        email: "admin@admin.com",
+        password: "password"
+    });
+
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.user_id);
     });
 
     passport.deserializeUser(function(id, done) {
         User.find({
             where: {
-                id: id
+                user_id: id
             }
         }).then(function(user) {
             if (!user) {
@@ -23,7 +30,7 @@ module.exports = function(passport) {
 
     // Use local strategy to create user account
     passport.use(new LocalStrategy({
-            usernameField: 'username',
+            usernameField: 'email',
             passwordField: 'password',
             //passReqToCallback: true
         },
