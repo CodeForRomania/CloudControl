@@ -1,3 +1,4 @@
+i{{#if session.isAuthenticated}}
 <div class="wrapper">
     {{application-header}}
     {{application-sidebar}}
@@ -9,3 +10,6 @@
     {{application-footer}}
 </div>
 <!-- ./wrapper -->
+{{else}}
+        {{liquid-outlet}}
+{{/if}}
