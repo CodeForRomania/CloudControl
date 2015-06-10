@@ -59,16 +59,24 @@ module.exports = function(passport, app) {
         login: function(req, res, next) {
             passport.authenticate('local', function(err, user, info) {
                 if (err) {
-                    return next(err);
+                    //return next(err);
+                        res.writeHead( 401, err, {'content-type': 'application/json'});
+                        res.end(err);
+                        return;
                 }
                 if (!user) {
-                    return next(info.message);
+                        res.writeHead( 401, info.message, {'content-type': 'application/json'});
+                        res.end(info.message);
+                        return;
+                    //return next(info.message);
                 }
                 req.logIn(user, function(err) {
                     if (err) {
-                        return next(err);
+                        res.writeHead( 401, err, {'content-type': 'application/json'});
+                        res.end(err);
+                    } else {
+                        res.end("all ok");
                     }
-                    res.sendStatus(200);
                 });
             })(req, res, next);
         },
@@ -80,7 +88,7 @@ module.exports = function(passport, app) {
             if (req.isAuthenticated()) {
                 return next();
             } else {
-                res.sendStatus(403);
+                res.sendStatus(401);
             }
         }
     }
