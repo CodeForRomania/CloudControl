@@ -4,17 +4,17 @@
         <img src="dist/img/logo-dark.png" style="max-width: 150px">{{/link-to}}
     </div>
     <div class="login-box-body">
-        {{#if loginFailed}}
-            <p class='login-box-error'>Geld washerei</p>
-        {{/if}}
         <p class="login-box-msg">{{t-tr 'login.title'}}</p>
+        {{#if loginFailed}}
+            <p class='login-box-msg alert-error'>{{loginFailedMessage}}</p>
+        {{/if}}
         <form {{action 'authenticate' on='submit'}}>
             <div class="form-group has-feedback">
-                {{input type="email" placeholder="Email" class="form-control" value=email}}
+                {{input type="email" placeholder="Email" class="form-control" value=identification}}
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                {{input type="password" placeholder="Password" class="form-control" value=password}}
+                {{input id="password" type="password" placeholder="Password" class="form-control" value=password}}
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">

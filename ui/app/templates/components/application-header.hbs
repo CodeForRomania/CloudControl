@@ -1,15 +1,17 @@
 <!-- Logo -->
-{{#link-to "index" class="logo"}}{{t-tr "dashboard_title"}}{{/link-to}}
+{{#link-to "index" class="logo"}}<b>Ember</b>DASHBOARD{{/link-to}}
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" role="navigation">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">{{t-tr 'header.toggleNavigation'}}</span>
+        <span class="sr-only">Toggle navigation</span>
     </a>
     <!-- Navbar Right Menu -->
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-        <!-- menu items should come from application-header-*-menu.hbs" -->
+            {{#if session.isAuthenticated}}
+                {{partial "application-header/user-menu"}}
+            {{/if}}
         </ul>
     </div>
 </nav>

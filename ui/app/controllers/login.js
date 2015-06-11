@@ -3,23 +3,19 @@ import Ember from 'ember';
 export
 default Ember.Controller.extend({
     password: 'password',
-    email: 'admin@admin.comm',
+    identification: 'admin@admin.com',
     remember: false,
     actions: {
         authenticate() {
             var authenticator = 'simple-auth-authenticator:token';
-            var data = this.getProperties('email', 'password', 'remember');
+            var data = this.getProperties('identification', 'password');
+            this.set('loginFailed', false);
 
-            this.set("loginFailed", false);
-
-
-            this.get('session').authenticate(authenticator, data).catch((result) => {
-                console.log(result);
-                console.log("aaaaaaaaaaaaaaaaaaaaAAAA");
-                this.set("loginFailed", true);
+            return this.get('session').authenticate(authenticator, data).catch((result) => {
+                this.set('loginFailedMessage', result);
+                this.set('loginFailed', true);
                 throw result;
             });
-return false;
         }
     }
 });

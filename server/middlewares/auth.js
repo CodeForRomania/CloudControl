@@ -35,6 +35,7 @@ module.exports = function(passport, app) {
             //passReqToCallback: true
         },
         function(username, password, done) {
+            console.log("Server info: ", username, password);
             User.find({
                 where: {
                     email: username
@@ -57,6 +58,7 @@ module.exports = function(passport, app) {
 
     return {
         login: function(req, res, next) {
+            console.log("Server info: ", req.body);
             passport.authenticate('local', function(err, user, info) {
                 if (err) {
                     //return next(err);
@@ -75,7 +77,10 @@ module.exports = function(passport, app) {
                         res.writeHead( 401, err, {'content-type': 'application/json'});
                         res.end(err);
                     } else {
-                        res.end("all ok");
+                        res.json({
+                            user: user,
+                            exp:  Date.now() + 3000
+                        });
                     }
                 });
             })(req, res, next);

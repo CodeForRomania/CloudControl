@@ -65,16 +65,16 @@ module.exports = function(environment) {
 
     ENV['simple-auth-token'] = {
         serverTokenEndpoint: 'http://localhost:3000/login',
-        identificationField: 'email',
+        identificationField: "email",
         passwordField: 'password',
         tokenPropertyName: 'id',
-        authorizationPrefix: '',
+        authorizationPrefix: 'Bearer',
         authorizationHeaderName: 'Authorization',
-        refreshAccessTokens: false,
+        refreshAccessTokens: true,
+        refreshLeeway: 300,
         tokenExpireName: 'ttl',
         timeFactor: 1
     };
-
 
     return ENV;
 };
