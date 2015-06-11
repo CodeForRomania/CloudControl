@@ -96,5 +96,5 @@ module.exports = function(passport, app) {
                 res.sendStatus(401);
             }
         }
-    }
+    };
 };

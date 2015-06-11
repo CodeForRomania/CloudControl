@@ -5,6 +5,12 @@ default Ember.Controller.extend({
     password: 'password',
     identification: 'admin@admin.com',
     remember: false,
+/*    rememberMe: false,
+    // change the store's cookie expiration time depending on whether "remember me" is checked or not
+    rememberMeChanged: function() {
+        this.get('session.store').cookieExpirationTime = this.get('rememberMe') ? 1209600 : null;
+    }.observes('rememberMe'),
+*/
     actions: {
         authenticate() {
             var authenticator = 'simple-auth-authenticator:token';

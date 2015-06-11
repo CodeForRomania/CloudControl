@@ -67,7 +67,7 @@ module.exports = function(environment) {
         serverTokenEndpoint: 'http://localhost:3000/login',
         identificationField: "email",
         passwordField: 'password',
-        tokenPropertyName: 'id',
+        tokenPropertyName: 'token',
         authorizationPrefix: 'Bearer',
         authorizationHeaderName: 'Authorization',
         refreshAccessTokens: true,
