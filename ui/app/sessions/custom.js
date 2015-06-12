@@ -3,7 +3,7 @@ import DS from 'ember-data';
 import Session from 'simple-auth/session';
 
 
-var OnlineSession =  Session.extend({
+export default  Session.extend({
     currentUser: function() {
         var userId = this.get('secure.user.user_id');
         if (!Ember.isEmpty(userId)) {

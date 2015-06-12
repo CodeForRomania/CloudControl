@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Session from "simple-auth/session";
 
 export default Ember.Component.extend({
     tagName: 'header',

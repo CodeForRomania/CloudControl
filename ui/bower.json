@@ -28,7 +28,8 @@
     "i18next": "~1.8.0",
     "jquery-ui": "~1.11.4",
     "jquery-knob": "~1.2.11",
-    "fastclick": "~1.0.6"
+    "fastclick": "~1.0.6",
+    "jquery-cookie": "~1.4.1"
   },
   "devDependencies": {
     "ember-cli-test-loader": "ember-cli-test-loader#0.1.3",

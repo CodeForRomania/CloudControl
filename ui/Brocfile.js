@@ -23,7 +23,7 @@ var app = new EmberApp();
 ******************************/
 var AdminLTE_PATH = "bower_components/adminlte";
 var BOWER_COMPONENT_PATH = "bower_components";
- 
+
 // Bootstrap 3.3.2
 app.import( AdminLTE_PATH + '/bootstrap/css/bootstrap.min.css');
 // FontAwesome 4.3.0
@@ -58,6 +58,7 @@ app.import( AdminLTE_PATH + '/bootstrap/js/bootstrap.min.js');
 
 // jQuery UI 1.11.4
 app.import( BOWER_COMPONENT_PATH + '/jquery-ui/jquery-ui.min.js');
+app.import( BOWER_COMPONENT_PATH + '/jquery-cookie/jquery.cookie.js');
 
 // raphael/2.1.0
 // app.import( AdminLTE_PATH + '/plugins/raphael/raphael-min.js');

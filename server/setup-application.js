@@ -12,17 +12,17 @@ module.exports = function(app, passport) {
         extended: false
     }));
 
-    app.set('trust proxy', 1); // trust first proxy
-
-
-    app.use(session({
-        secret: 'CCDash',
-        resave: true,
-        saveUninitialized: true
-    }));
+    //app.set('trust proxy', 1); // trust first proxy
 
 
     app.use(cookieParser());
+
+    app.use(session({
+        secret: 'CCDash',
+        saveUninitialized: false
+    }));
+
+
     app.use(setupCrossDomain);
 
     app.use(passport.initialize());

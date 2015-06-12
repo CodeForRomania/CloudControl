@@ -11,7 +11,6 @@ app = setupApp(app, passport);
 
 app.locals.db = require('./database/');
 
-var api = require('./routes/api')(app);
 
 
 var Auth = require('./middlewares/auth')(passport, app);
@@ -19,6 +18,7 @@ var Auth = require('./middlewares/auth')(passport, app);
 app.use('/login', Auth.login);
 app.use('/logout', Auth.logout);
 
+var api = require('./routes/api')(app);
 app.use('/api', Auth.ensureAuthenticated, api);
 
 // catch 404 and forward to error handler
