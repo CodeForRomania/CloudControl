@@ -65,7 +65,7 @@ module.exports = function(environment) {
 
     ENV['simple-auth-token'] = {
         serverTokenEndpoint: 'http://localhost:3000/login',
-        identificationField: "email",
+        identificationField: "username",
         passwordField: 'password',
         tokenPropertyName: 'token',
         authorizationPrefix: 'Bearer',

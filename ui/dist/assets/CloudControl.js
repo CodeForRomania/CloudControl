@@ -1612,7 +1612,7 @@ define('CloudControl/controllers/login', ['exports', 'ember'], function (exports
             authenticate: function authenticate() {
                 var _this = this;
 
-                var authenticator = 'simple-auth-authenticator:token';
+                var authenticator = 'simple-auth-authenticator:jwt';
                 var data = this.getProperties('identification', 'password');
                 this.set('loginFailed', false);
 
@@ -2815,7 +2815,8 @@ define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simpl
 
     exports['default'] = Session['default'].extend({
         currentUser: (function () {
-            var userId = this.get('secure.user.user_id');
+            var userId = this.get('secure.user.id');
+            console.log(userId);
             if (!Ember['default'].isEmpty(userId)) {
                 return DS['default'].PromiseObject.create({
                     promise: this.container.lookup('store:main').find('user', userId)
@@ -39154,7 +39155,7 @@ catch(err) {
 if (runningTests) {
   require("CloudControl/tests/test-helper");
 } else {
-  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.8abf8f58"});
+  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.3d03f37c"});
 }
 
 /* jshint ignore:end */

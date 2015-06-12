@@ -13,7 +13,7 @@ default Ember.Controller.extend({
     */
     actions: {
         authenticate() {
-            var authenticator = 'simple-auth-authenticator:token';
+            var authenticator = 'simple-auth-authenticator:jwt';
             var data = this.getProperties('identification', 'password');
             this.set('loginFailed', false);
 
