@@ -57,7 +57,6 @@ module.exports = function(environment) {
 
     ENV['simple-auth'] = {
         session: 'session:custom',
-        store: 'simple-auth-session-store:local-storage',
         authorizer: 'simple-auth-authorizer:token',
         routeAfterAuthentication: 'index',
         routeIfAlreadyAuthenticated: 'index'

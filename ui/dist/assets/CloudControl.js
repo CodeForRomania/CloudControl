@@ -1623,6 +1623,7 @@ define('CloudControl/controllers/login', ['exports', 'ember'], function (exports
                 var data = this.getProperties('identification', 'password');
                 this.set('loginFailed', false);
 
+                debugger;
                 return this.get('session').authenticate(authenticator, data)['catch'](function (result) {
                     _this.set('loginFailedMessage', result);
                     _this.set('loginFailed', true);
@@ -2830,21 +2831,21 @@ define('CloudControl/services/liquid-fire-transitions', ['exports', 'liquid-fire
 	exports['default'] = TransitionMap['default'];
 
 });
-define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simple-auth/session'], function (exports, Ember, DS, Session) {
+define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simple-auth/session', 'simple-auth-token/authenticators/jwt'], function (exports, Ember, DS, Session, jwt) {
 
     'use strict';
 
     exports['default'] = Session['default'].extend({
         currentUser: (function () {
-            //console.log(this.get('session').restore);
-            var userId = this.get('secure.user.id');
-            //console.log(userId);
-            if (!Ember['default'].isEmpty(userId)) {
+            console.log(jwt['default']);
+            var token = 0; //this.get('secure.token');
+
+            if (!Ember['default'].isEmpty(token)) {
                 return DS['default'].PromiseObject.create({
-                    promise: this.container.lookup('store:main').find('user', userId)
+                    promise: this.container.lookup('store:main').find('user', token)
                 });
             }
-        }).property('currentUser')
+        }).property('secure.token')
     });
 
 });
@@ -37485,7 +37486,7 @@ define('CloudControl/tests/controllers/login.jshint', function () {
 
   module('JSHint - controllers');
   test('controllers/login.js should pass jshint', function() { 
-    ok(true, 'controllers/login.js should pass jshint.'); 
+    ok(false, 'controllers/login.js should pass jshint.\ncontrollers/login.js: line 20, col 9, Forgotten \'debugger\' statement?\n\n1 error'); 
   });
 
 });
@@ -39197,7 +39198,7 @@ catch(err) {
 if (runningTests) {
   require("CloudControl/tests/test-helper");
 } else {
-  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.f9ce3a46"});
+  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.f09a9408"});
 }
 
 /* jshint ignore:end */
