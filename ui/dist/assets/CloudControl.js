@@ -22,6 +22,13 @@ define('CloudControl/adapters/application', ['exports', 'ember', 'ember-data'], 
     });
 
 });
+define('CloudControl/adapters/authKey', ['exports', 'ember-data'], function (exports, DS) {
+
+	'use strict';
+
+	exports['default'] = DS['default'].LSAdapter.extend({});
+
+});
 define('CloudControl/app', ['exports', 'ember', 'ember/resolver', 'ember/load-initializers', 'CloudControl/config/environment'], function (exports, Ember, Resolver, loadInitializers, config) {
 
     'use strict';
@@ -2508,6 +2515,20 @@ define('CloudControl/initializers/simple-auth', ['exports', 'simple-auth/configu
   };
 
 });
+define('CloudControl/models/authKey', ['exports', 'ember-data'], function (exports, DS) {
+
+    'use strict';
+
+    var AuthKey = DS['default'].Model.extend({
+        access_token: DS['default'].attr('string'),
+        user: DS['default'].belongsTo('user', {
+            async: true
+        })
+    });
+
+    exports['default'] = AuthKey;
+
+});
 define('CloudControl/models/group', ['exports', 'ember-data'], function (exports, DS) {
 
     'use strict';
@@ -2815,8 +2836,9 @@ define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simpl
 
     exports['default'] = Session['default'].extend({
         currentUser: (function () {
+            //console.log(this.get('session').restore);
             var userId = this.get('secure.user.id');
-            console.log(userId);
+            //console.log(userId);
             if (!Ember['default'].isEmpty(userId)) {
                 return DS['default'].PromiseObject.create({
                     promise: this.container.lookup('store:main').find('user', userId)
@@ -14248,7 +14270,7 @@ define('CloudControl/templates/login', ['exports'], function (exports) {
         var el6 = dom.createElement("button");
         dom.setAttribute(el6,"type","submit");
         dom.setAttribute(el6,"class","btn btn-primary btn-block btn-flat");
-        dom.setAttribute(el6,"autofocus1","");
+        dom.setAttribute(el6,"autofocus","autofocus");
         var el7 = dom.createComment("");
         dom.appendChild(el6, el7);
         dom.appendChild(el5, el6);
@@ -37337,6 +37359,16 @@ define('CloudControl/tests/adapters/application.jshint', function () {
   });
 
 });
+define('CloudControl/tests/adapters/authKey.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - adapters');
+  test('adapters/authKey.js should pass jshint', function() { 
+    ok(true, 'adapters/authKey.js should pass jshint.'); 
+  });
+
+});
 define('CloudControl/tests/app.jshint', function () {
 
   'use strict';
@@ -37581,6 +37613,16 @@ define('CloudControl/tests/helpers/t-tr.jshint', function () {
   module('JSHint - helpers');
   test('helpers/t-tr.js should pass jshint', function() { 
     ok(true, 'helpers/t-tr.js should pass jshint.'); 
+  });
+
+});
+define('CloudControl/tests/models/authKey.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - models');
+  test('models/authKey.js should pass jshint', function() { 
+    ok(true, 'models/authKey.js should pass jshint.'); 
   });
 
 });
@@ -39155,7 +39197,7 @@ catch(err) {
 if (runningTests) {
   require("CloudControl/tests/test-helper");
 } else {
-  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.3d03f37c"});
+  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.f9ce3a46"});
 }
 
 /* jshint ignore:end */

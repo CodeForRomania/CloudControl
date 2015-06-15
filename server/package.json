@@ -1,0 +1,13 @@
+{
+  "name": "ccDashboard-server",
+  "dependencies": {
+    "bcrypt-nodejs": "*",
+    "jsonwebtoken": "latest",
+    "minimist": "latest",
+    "passport": "latest",
+    "passport-http-bearer": "latest",
+    "passport-local": "latest",
+    "restify": "latest",
+    "sqlite3": "latest"
+  }
+}

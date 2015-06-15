@@ -68,7 +68,7 @@ module.exports = function(environment) {
         identificationField: "username",
         passwordField: 'password',
         tokenPropertyName: 'token',
-        authorizationPrefix: 'Bearer',
+        authorizationPrefix: 'Bearer ',
         authorizationHeaderName: 'Authorization',
         refreshAccessTokens: true,
         refreshLeeway: 300,
