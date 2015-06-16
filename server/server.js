@@ -2,7 +2,7 @@
 
 var argv = require('minimist')(process.argv.slice(2));
 var JWT_SECRET = argv.jwtSecret || 'dontdothis';
-var JWT_EXPIRY = argv.jwtExpiry || 1;
+var JWT_EXPIRY = argv.jwtExpiry || 5;
 var DB_PATH = argv.dbPath;
 var PORT = process.env.port || 3000;
 
@@ -27,16 +27,15 @@ var server = restify.createServer({
 });
 
 server.pre(restify.pre.userAgentConnection());
+server.pre(restify.CORS());
 server.use(restify.bodyParser({
     mapParams: false
 }));
-server.use(restify.CORS());
 server.post('/login', localAuth, auth.issue);
-server.get('/restore', function (req, res, next) { console.log(req, res); })
 
 server.post('/register', db.register);
 
-server.get('/api/user', bearerAuth, function(req, res, next) {
+server.get('/api/users/:id', bearerAuth, function(req, res, next) {
     console.log(1234455, req.user.username, req.user.email);
     res.send('Congrats, ' + req.user.username);
     next();

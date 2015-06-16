@@ -30,6 +30,7 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
             });
         }),
         bearer: new BearerStrategy(function(token, done) {
+            console.log(token,  'token');
             jwt.verify(token, jwt_secret, function(err, decoded) {
                 if (err) {
                     return done(err);
