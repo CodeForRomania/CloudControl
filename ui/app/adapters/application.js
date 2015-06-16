@@ -5,6 +5,9 @@ export
 default DS.RESTAdapter.extend({
     host: 'http://localhost:3000',
     namespace: 'api',
+    headers: {
+        'authorization': 'Bearier '
+    },
 
     findQuery: function(store, type, query) {
         var loopbackQuery = {};

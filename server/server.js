@@ -27,20 +27,29 @@ var server = restify.createServer({
 });
 
 server.pre(restify.pre.userAgentConnection());
-server.pre(restify.CORS());
+restify.CORS.ALLOW_HEADERS.push('authorization');
+restify.CORS.ALLOW_HEADERS.push('Access-Control-Allow-Origin');
+server.pre(restify.CORS({
+    credentials: true,
+    headers: ['authorization']
+}));
 server.use(restify.bodyParser({
     mapParams: false
 }));
 server.post('/login', localAuth, auth.issue);
 
 server.post('/register', db.register);
+var control = function(req, res, next) {
+    console.log(req.headers);
+    next();
+};
 
-server.get('/api/users/:id', bearerAuth, function(req, res, next) {
-    console.log(1234455, req.user.username, req.user.email);
-    res.send('Congrats, ' + req.user.username);
+server.get('/api/users/:id', control, bearerAuth, function(req, res, next) {
+    console.log(1234455, req.params);
+    res.send('Congrats, ' + req.params);
     next();
 });
 
 server.listen(PORT, function() {
-    console.log('Listening at ' , PORT);
+    console.log('Listening at ', PORT);
 });

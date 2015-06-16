@@ -9,6 +9,9 @@ define('CloudControl/adapters/application', ['exports', 'ember', 'ember-data'], 
     exports['default'] = DS['default'].RESTAdapter.extend({
         host: 'http://localhost:3000',
         namespace: 'api',
+        headers: {
+            'authorization': 'Bearier '
+        },
 
         findQuery: function findQuery(store, type, query) {
             var loopbackQuery = {};
