@@ -30,7 +30,7 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
                         console.log('sequelize find user', user);
                         return done(null, {
                             username: user.email,
-                            id: user.id
+                            id: user.user_id
                         });
                     });
                 });
@@ -50,8 +50,8 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
 
         issue: function(req, res, next) {
             var claims = {
-                iss: req.user.username,
-                uid: req.user.id || 100,
+                iss: req.user.email,
+                uid: req.user.user_id,
                 admin: true
             };
 

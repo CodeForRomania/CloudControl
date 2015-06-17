@@ -2823,11 +2823,11 @@ define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simpl
     exports['default'] = Session['default'].extend({
         currentUser: (function () {
             var token = this.get('secure.token'),
-                id = this.get('secure.id');
+                user_id = this.get('secure.id');
 
             if (!Ember['default'].isEmpty(token)) {
                 return DS['default'].PromiseObject.create({
-                    promise: this.container.lookup('store:main').find('user', id)
+                    promise: this.container.lookup('store:main').find('user', user_id)
                 });
             }
         }).property('currentUser')
