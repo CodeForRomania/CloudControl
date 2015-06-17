@@ -9,9 +9,14 @@ module.exports = function(sequelize, DataTypes) {
         },
         email: {
             type: DataTypes.TEXT,
+            unique: 'compositeIndex',
             allowNull: false
         },
         password: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        salt: {
             type: DataTypes.TEXT,
             allowNull: false
         }

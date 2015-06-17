@@ -2583,6 +2583,7 @@ define('CloudControl/models/user', ['exports', 'ember-data'], function (exports,
 
     var User = DS['default'].Model.extend({
         email: DS['default'].attr('String'),
+        username: DS['default'].attr('String'),
         password: DS['default'].attr('String'),
         profile: DS['default'].belongsTo('profile'),
         groups: DS['default'].hasMany('group')
@@ -2822,14 +2823,14 @@ define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simpl
     exports['default'] = Session['default'].extend({
         currentUser: (function () {
             var token = this.get('secure.token'),
-                user_id = this.get('secure.user_id');
+                id = this.get('secure.id');
 
             if (!Ember['default'].isEmpty(token)) {
                 return DS['default'].PromiseObject.create({
-                    promise: this.container.lookup('store:main').find('user', user_id)
+                    promise: this.container.lookup('store:main').find('user', id)
                 });
             }
-        }).property('secure.token')
+        }).property('currentUser')
     });
 
 });
@@ -3967,7 +3968,7 @@ define('CloudControl/templates/application-header/user-menu', ['exports'], funct
         var element0 = dom.childAt(fragment, [2]);
         var element1 = dom.childAt(element0, [3, 11, 3, 1]);
         var morph0 = dom.createMorphAt(dom.childAt(element0, [1, 3]),0,0);
-        content(env, morph0, context, "session.currentUser.email");
+        content(env, morph0, context, "session.currentUser.username");
         element(env, element1, context, "action", ["invalidateSession"], {});
         return fragment;
       }
@@ -5320,7 +5321,7 @@ define('CloudControl/templates/components/application-sidebar', ['exports'], fun
         var el4 = dom.createTextNode("\n            ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("p");
-        var el5 = dom.createTextNode("Alexander Pierce");
+        var el5 = dom.createComment("");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n\n            ");
@@ -5611,7 +5612,7 @@ define('CloudControl/templates/components/application-sidebar', ['exports'], fun
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, inline = hooks.inline, block = hooks.block;
+        var hooks = env.hooks, content = hooks.content, inline = hooks.inline, block = hooks.block;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -5629,47 +5630,50 @@ define('CloudControl/templates/components/application-sidebar', ['exports'], fun
         } else {
           fragment = this.build(dom);
         }
-        var element0 = dom.childAt(fragment, [2, 13]);
-        var element1 = dom.childAt(element0, [7]);
-        var element2 = dom.childAt(element1, [3]);
-        var element3 = dom.childAt(element2, [1]);
-        var element4 = dom.childAt(element3, [3]);
-        var element5 = dom.childAt(element2, [3]);
-        var element6 = dom.childAt(element5, [3]);
-        var morph0 = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
-        var morph1 = dom.createMorphAt(dom.childAt(element0, [3]),1,1);
-        var morph2 = dom.createMorphAt(element1,1,1);
-        var morph3 = dom.createMorphAt(element3,1,1);
-        var morph4 = dom.createMorphAt(dom.childAt(element4, [1]),0,0);
-        var morph5 = dom.createMorphAt(dom.childAt(element4, [3]),0,0);
-        var morph6 = dom.createMorphAt(dom.childAt(element4, [5]),0,0);
-        var morph7 = dom.createMorphAt(dom.childAt(element4, [7]),0,0);
-        var morph8 = dom.createMorphAt(dom.childAt(element4, [9]),0,0);
-        var morph9 = dom.createMorphAt(dom.childAt(element4, [11]),0,0);
-        var morph10 = dom.createMorphAt(dom.childAt(element4, [13]),0,0);
-        var morph11 = dom.createMorphAt(element5,1,1);
-        var morph12 = dom.createMorphAt(dom.childAt(element6, [1]),0,0);
-        var morph13 = dom.createMorphAt(dom.childAt(element6, [3]),0,0);
-        var morph14 = dom.createMorphAt(dom.childAt(element6, [5]),0,0);
-        var morph15 = dom.createMorphAt(dom.childAt(element2, [5]),1,1);
-        var morph16 = dom.createMorphAt(dom.childAt(element0, [11]),0,0);
-        inline(env, morph0, context, "t-tr", ["sidebar.mainNavigation"], {});
-        block(env, morph1, context, "link-to", ["index"], {}, child0, null);
-        block(env, morph2, context, "link-to", ["tools"], {}, child1, null);
-        block(env, morph3, context, "link-to", ["settings"], {}, child2, null);
-        block(env, morph4, context, "link-to", ["settings.amazon"], {}, child3, null);
-        block(env, morph5, context, "link-to", ["settings.azure"], {}, child4, null);
-        block(env, morph6, context, "link-to", ["settings.digitalOcean"], {}, child5, null);
-        block(env, morph7, context, "link-to", ["settings.hp"], {}, child6, null);
-        block(env, morph8, context, "link-to", ["settings.joyent"], {}, child7, null);
-        block(env, morph9, context, "link-to", ["settings.openstack"], {}, child8, null);
-        block(env, morph10, context, "link-to", ["settings.rackspace"], {}, child9, null);
-        block(env, morph11, context, "link-to", ["users"], {}, child10, null);
-        block(env, morph12, context, "link-to", ["users.list"], {}, child11, null);
-        block(env, morph13, context, "link-to", ["users.groups"], {}, child12, null);
-        block(env, morph14, context, "link-to", ["users.roles"], {}, child13, null);
-        block(env, morph15, context, "link-to", ["logs"], {}, child14, null);
-        block(env, morph16, context, "link-to", ["comingsoon"], {}, child15, null);
+        var element0 = dom.childAt(fragment, [2]);
+        var element1 = dom.childAt(element0, [13]);
+        var element2 = dom.childAt(element1, [7]);
+        var element3 = dom.childAt(element2, [3]);
+        var element4 = dom.childAt(element3, [1]);
+        var element5 = dom.childAt(element4, [3]);
+        var element6 = dom.childAt(element3, [3]);
+        var element7 = dom.childAt(element6, [3]);
+        var morph0 = dom.createMorphAt(dom.childAt(element0, [3, 3, 1]),0,0);
+        var morph1 = dom.createMorphAt(dom.childAt(element1, [1]),0,0);
+        var morph2 = dom.createMorphAt(dom.childAt(element1, [3]),1,1);
+        var morph3 = dom.createMorphAt(element2,1,1);
+        var morph4 = dom.createMorphAt(element4,1,1);
+        var morph5 = dom.createMorphAt(dom.childAt(element5, [1]),0,0);
+        var morph6 = dom.createMorphAt(dom.childAt(element5, [3]),0,0);
+        var morph7 = dom.createMorphAt(dom.childAt(element5, [5]),0,0);
+        var morph8 = dom.createMorphAt(dom.childAt(element5, [7]),0,0);
+        var morph9 = dom.createMorphAt(dom.childAt(element5, [9]),0,0);
+        var morph10 = dom.createMorphAt(dom.childAt(element5, [11]),0,0);
+        var morph11 = dom.createMorphAt(dom.childAt(element5, [13]),0,0);
+        var morph12 = dom.createMorphAt(element6,1,1);
+        var morph13 = dom.createMorphAt(dom.childAt(element7, [1]),0,0);
+        var morph14 = dom.createMorphAt(dom.childAt(element7, [3]),0,0);
+        var morph15 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
+        var morph16 = dom.createMorphAt(dom.childAt(element3, [5]),1,1);
+        var morph17 = dom.createMorphAt(dom.childAt(element1, [11]),0,0);
+        content(env, morph0, context, "session.currentUser.username");
+        inline(env, morph1, context, "t-tr", ["sidebar.mainNavigation"], {});
+        block(env, morph2, context, "link-to", ["index"], {}, child0, null);
+        block(env, morph3, context, "link-to", ["tools"], {}, child1, null);
+        block(env, morph4, context, "link-to", ["settings"], {}, child2, null);
+        block(env, morph5, context, "link-to", ["settings.amazon"], {}, child3, null);
+        block(env, morph6, context, "link-to", ["settings.azure"], {}, child4, null);
+        block(env, morph7, context, "link-to", ["settings.digitalOcean"], {}, child5, null);
+        block(env, morph8, context, "link-to", ["settings.hp"], {}, child6, null);
+        block(env, morph9, context, "link-to", ["settings.joyent"], {}, child7, null);
+        block(env, morph10, context, "link-to", ["settings.openstack"], {}, child8, null);
+        block(env, morph11, context, "link-to", ["settings.rackspace"], {}, child9, null);
+        block(env, morph12, context, "link-to", ["users"], {}, child10, null);
+        block(env, morph13, context, "link-to", ["users.list"], {}, child11, null);
+        block(env, morph14, context, "link-to", ["users.groups"], {}, child12, null);
+        block(env, morph15, context, "link-to", ["users.roles"], {}, child13, null);
+        block(env, morph16, context, "link-to", ["logs"], {}, child14, null);
+        block(env, morph17, context, "link-to", ["comingsoon"], {}, child15, null);
         return fragment;
       }
     };

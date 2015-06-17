@@ -8,55 +8,102 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = function(db, jwt_secret, jwt_expiry) {
     return {
         local: new LocalStrategy(function(username, password, done) {
-            db.find(username, function(err, dbUser) {
-                if (err) {
-                    return done(err);
-                }
-                if (!dbUser) {
-                    return done(null, false);
-                }
+            db.User.find({
+                    where: {
+                        email: username
+                    }
+                })
+                .then(function(user) {
+                    if (!user) {
+                        return done(null, false, {
+                            message: 'Unknown user'
+                        });
+                    }
 
-                bcrypt.hash(password, dbUser.salt, null, function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    if (res !== dbUser.password) {
-                        return done(null, false);
-                    }
-                    return done(null, {
-                        username: dbUser.username
+                    bcrypt.hash(password, user.salt, null, function(err, response) {
+                        if (err) {
+                            return done(err);
+                        }
+                        if (response !== user.password) {
+                            return done(null, false);
+                        }
+                        console.log('sequelize find user', user);
+                        return done(null, {
+                            username: user.email,
+                            id: user.id
+                        });
                     });
                 });
-            });
         }),
+
         bearer: new BearerStrategy(function(token, done) {
-            console.log(token,  'token');
             jwt.verify(token, jwt_secret, function(err, decoded) {
                 if (err) {
                     return done(err);
                 }
                 return done(null, {
-                    username: decoded.iss
+                    username: decoded.iss,
+                    id: decoded.uid
                 });
             });
         }),
+
         issue: function(req, res, next) {
             var claims = {
                 iss: req.user.username,
-                id: req.user.id || 100,
+                uid: req.user.id || 100,
                 admin: true
             };
 
-
             var token = jwt.sign(claims, jwt_secret, {
-               ttl: jwt_expiry
+                ttl: jwt_expiry
             });
 
             res.json({
                 'token': token,
-                "user_id": claims.id
+                "id": claims.uid
             });
             next();
+        },
+
+        register: function(req, res, next) {
+            var username = req.body.username,
+                password = req.body.password;
+
+            bcrypt.genSalt(100, function(err, salt) {
+                if (err) {
+                    return res.send(err);
+                }
+                bcrypt.hash(password, salt, null, function(err, hashed) {
+                    if (err) {
+                        return res.send(err);
+                    }
+
+                    db.User.create({
+                            email: username,
+                            password: hashed,
+                            salt: salt
+                        })
+                        .then(function(user) {
+                            console.log("User created", user);
+                            if (user) {
+                                res.json({
+                                    email: user.email
+                                });
+                                return next();
+                            }
+                        })
+                        .catch(function(err) {
+                            console.log(err);
+
+                            var error = new Error(err);
+                            error.status = 500;
+
+                            res.send(JSON.stringify(error));
+                        });
+
+                });
+            });
         }
     };
-};
+}

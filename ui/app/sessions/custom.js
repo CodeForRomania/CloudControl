@@ -6,13 +6,13 @@ export
 default Session.extend({
     currentUser: function() {
         var token = this.get('secure.token'),
-            user_id = this.get('secure.user_id');
+            id = this.get('secure.id');
 
         if (!Ember.isEmpty(token)) {
             return DS.PromiseObject.create({
-                promise: this.container.lookup('store:main').find('user', user_id)
+                promise: this.container.lookup('store:main').find('user', id)
             });
         }
-    }.property('secure.token')
+    }.property('currentUser')
 });
 

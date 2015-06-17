@@ -9,7 +9,7 @@ var PORT = process.env.port || 3000;
 var restify = require('restify');
 var passport = require('passport');
 
-var db = require('./database')(DB_PATH);
+var db = require('./database');
 var auth = require('./middlewares/auth')(db, JWT_SECRET, JWT_EXPIRY);
 
 passport.use(auth.local);
@@ -41,15 +41,15 @@ server.use(restify.bodyParser({
 }));
 server.post('/login', localAuth, auth.issue);
 
-server.post('/register', db.register);
+server.post('/register', auth.register);
 var control = function(req, res, next) {
     console.log(req.headers);
     next();
 };
 
-server.get('/api/users/:user_id', control, bearerAuth,  function(req, res, next) {
-    console.log(1234455, req.params);
-    res.send('Congrats, ' + req.params);
+server.get('/api/users/:user_id', bearerAuth,  function(req, res, next) {
+    console.log(req.user);
+    res.json(req.user);
     next();
 });
 
