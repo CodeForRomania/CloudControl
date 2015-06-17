@@ -5,9 +5,12 @@ export
 default DS.RESTAdapter.extend({
     host: 'http://localhost:3000',
     namespace: 'api',
-    headers: {
-        'authorization': 'Bearier '
-    },
+    headers: function() {
+        var token = this.container.lookup('session:custom').get('secure.token');
+        return {
+            'authorization': 'Bearer ' + token
+        };
+    }.property().volatile(),
 
     findQuery: function(store, type, query) {
         var loopbackQuery = {};

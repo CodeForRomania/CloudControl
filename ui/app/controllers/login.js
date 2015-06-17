@@ -17,7 +17,6 @@ default Ember.Controller.extend({
             var data = this.getProperties('identification', 'password');
             this.set('loginFailed', false);
 
-        debugger;
            return this.get('session').authenticate(authenticator, data)
                 .catch((result) => {
                     this.set('loginFailedMessage', result);

@@ -1,17 +1,16 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import Session from 'simple-auth/session';
-import jwt from 'simple-auth-token/authenticators/jwt';
 
-
-export default  Session.extend({
+export
+default Session.extend({
     currentUser: function() {
-console.log(jwt);
-        var token = 0;//this.get('secure.token');
+        var token = this.get('secure.token'),
+            user_id = this.get('secure.user_id');
 
         if (!Ember.isEmpty(token)) {
             return DS.PromiseObject.create({
-                promise: this.container.lookup('store:main').find('user', token)
+                promise: this.container.lookup('store:main').find('user', user_id)
             });
         }
     }.property('secure.token')

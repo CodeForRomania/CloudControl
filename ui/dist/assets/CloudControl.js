@@ -9,9 +9,12 @@ define('CloudControl/adapters/application', ['exports', 'ember', 'ember-data'], 
     exports['default'] = DS['default'].RESTAdapter.extend({
         host: 'http://localhost:3000',
         namespace: 'api',
-        headers: {
-            'authorization': 'Bearier '
-        },
+        headers: (function () {
+            var token = this.container.lookup('session:custom').get('secure.token');
+            return {
+                'authorization': 'Bearer ' + token
+            };
+        }).property().volatile(),
 
         findQuery: function findQuery(store, type, query) {
             var loopbackQuery = {};
@@ -23,13 +26,6 @@ define('CloudControl/adapters/application', ['exports', 'ember', 'ember-data'], 
             return this._super(store, type, loopbackQuery);
         }
     });
-
-});
-define('CloudControl/adapters/authKey', ['exports', 'ember-data'], function (exports, DS) {
-
-	'use strict';
-
-	exports['default'] = DS['default'].LSAdapter.extend({});
 
 });
 define('CloudControl/app', ['exports', 'ember', 'ember/resolver', 'ember/load-initializers', 'CloudControl/config/environment'], function (exports, Ember, Resolver, loadInitializers, config) {
@@ -1626,7 +1622,6 @@ define('CloudControl/controllers/login', ['exports', 'ember'], function (exports
                 var data = this.getProperties('identification', 'password');
                 this.set('loginFailed', false);
 
-                debugger;
                 return this.get('session').authenticate(authenticator, data)['catch'](function (result) {
                     _this.set('loginFailedMessage', result);
                     _this.set('loginFailed', true);
@@ -2519,20 +2514,6 @@ define('CloudControl/initializers/simple-auth', ['exports', 'simple-auth/configu
   };
 
 });
-define('CloudControl/models/authKey', ['exports', 'ember-data'], function (exports, DS) {
-
-    'use strict';
-
-    var AuthKey = DS['default'].Model.extend({
-        access_token: DS['default'].attr('string'),
-        user: DS['default'].belongsTo('user', {
-            async: true
-        })
-    });
-
-    exports['default'] = AuthKey;
-
-});
 define('CloudControl/models/group', ['exports', 'ember-data'], function (exports, DS) {
 
     'use strict';
@@ -2834,18 +2815,18 @@ define('CloudControl/services/liquid-fire-transitions', ['exports', 'liquid-fire
 	exports['default'] = TransitionMap['default'];
 
 });
-define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simple-auth/session', 'simple-auth-token/authenticators/jwt'], function (exports, Ember, DS, Session, jwt) {
+define('CloudControl/sessions/custom', ['exports', 'ember', 'ember-data', 'simple-auth/session'], function (exports, Ember, DS, Session) {
 
     'use strict';
 
     exports['default'] = Session['default'].extend({
         currentUser: (function () {
-            console.log(jwt['default']);
-            var token = 0; //this.get('secure.token');
+            var token = this.get('secure.token'),
+                user_id = this.get('secure.user_id');
 
             if (!Ember['default'].isEmpty(token)) {
                 return DS['default'].PromiseObject.create({
-                    promise: this.container.lookup('store:main').find('user', token)
+                    promise: this.container.lookup('store:main').find('user', user_id)
                 });
             }
         }).property('secure.token')
@@ -37363,16 +37344,6 @@ define('CloudControl/tests/adapters/application.jshint', function () {
   });
 
 });
-define('CloudControl/tests/adapters/authKey.jshint', function () {
-
-  'use strict';
-
-  module('JSHint - adapters');
-  test('adapters/authKey.js should pass jshint', function() { 
-    ok(true, 'adapters/authKey.js should pass jshint.'); 
-  });
-
-});
 define('CloudControl/tests/app.jshint', function () {
 
   'use strict';
@@ -37489,7 +37460,7 @@ define('CloudControl/tests/controllers/login.jshint', function () {
 
   module('JSHint - controllers');
   test('controllers/login.js should pass jshint', function() { 
-    ok(false, 'controllers/login.js should pass jshint.\ncontrollers/login.js: line 20, col 9, Forgotten \'debugger\' statement?\n\n1 error'); 
+    ok(true, 'controllers/login.js should pass jshint.'); 
   });
 
 });
@@ -37617,16 +37588,6 @@ define('CloudControl/tests/helpers/t-tr.jshint', function () {
   module('JSHint - helpers');
   test('helpers/t-tr.js should pass jshint', function() { 
     ok(true, 'helpers/t-tr.js should pass jshint.'); 
-  });
-
-});
-define('CloudControl/tests/models/authKey.jshint', function () {
-
-  'use strict';
-
-  module('JSHint - models');
-  test('models/authKey.js should pass jshint', function() { 
-    ok(true, 'models/authKey.js should pass jshint.'); 
   });
 
 });
@@ -39201,7 +39162,7 @@ catch(err) {
 if (runningTests) {
   require("CloudControl/tests/test-helper");
 } else {
-  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.f09a9408"});
+  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.57f7ddc6"});
 }
 
 /* jshint ignore:end */

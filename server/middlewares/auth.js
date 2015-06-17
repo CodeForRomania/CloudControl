@@ -43,11 +43,10 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
         issue: function(req, res, next) {
             var claims = {
                 iss: req.user.username,
-                id: req.user.id,
+                id: req.user.id || 100,
                 admin: true
             };
 
-    console.log(claims);
 
             var token = jwt.sign(claims, jwt_secret, {
                ttl: jwt_expiry
@@ -55,6 +54,7 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
 
             res.json({
                 'token': token,
+                "user_id": claims.id
             });
             next();
         }

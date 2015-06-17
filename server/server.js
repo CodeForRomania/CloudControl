@@ -33,6 +33,9 @@ server.pre(restify.CORS({
     credentials: true,
     headers: ['authorization']
 }));
+
+server.use(restify.fullResponse())
+server.use(restify.queryParser())
 server.use(restify.bodyParser({
     mapParams: false
 }));
@@ -44,7 +47,7 @@ var control = function(req, res, next) {
     next();
 };
 
-server.get('/api/users/:id', control, bearerAuth, function(req, res, next) {
+server.get('/api/users/:user_id', control, bearerAuth,  function(req, res, next) {
     console.log(1234455, req.params);
     res.send('Congrats, ' + req.params);
     next();
