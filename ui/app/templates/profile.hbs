@@ -1,6 +1,6 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  <h1>
+    <h1>
     <i class="fa fa-dashboard"></i> {{t-tr 'profile.title'}}
     <small>{{t-tr 'profile.subtitle'}}</small>
   </h1>
@@ -10,23 +10,53 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4">
-<!-- settings -->
+            <!-- settings -->
             {{#box-widget t_title='profile.settings' colorSceme = 'info' }}
+            <form role="form" action="updateProfile" on="submit">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="email">{{t-tr 'profile.email'}}</label>
+                        {{input class="form-control" type="email" readonly="readonly" id="email" value=session.currentUser.email}}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{t-tr 'profile.password'}}</label>
+                        {{input type="password" class="form-control" id="password" placeholder="Password" value=password}}
+                    </div>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button class="btn btn-primary">{{t-tr 'general.submit'}}</button>
+                </div>
+            </form>
             {{/box-widget}}
-<!-- general accoutns settings -->
-            {{#box-widget
-                t_title='profile.linkedAccounts'
-                colorSceme = 'info'
-            }}
-            {{/box-widget}}
+            <!-- general accoutns settings -->
+            {{#box-widget t_title='profile.linkedAccounts' colorSceme = 'info' }} {{/box-widget}}
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-8">
-<!-- avatar settingss -->
-            {{#box-widget
-                t_title = 'profile.avatar'
-                colorSceme = "info"
-            }}
+            <!-- avatar settingss -->
+            {{#box-widget t_title='profile.avatar' colorSceme = "info" }}
+            <form role="form" action="updateProfile" on="submit">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="avatarImage">{{t-tr 'profile.avatarImage'}}</label>
+                        {{input class="form-control" type="file" id="avatarImage"}}
+                    </div>
+
+                    {{#liquid-unless flaggedDrilled class="drilldown"}}
+                    <div class="form-group">
+                        <label for="avatarImage">{{t-tr 'profile.avatarPreview'}}</label>
+                    </div>
+                    {{/liquid-unless}}
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button class="btn btn-primary">{{t-tr 'general.upload'}}</button>
+                </div>
+            </form>
+
             {{/box-widget}}
         </div>
     </div>

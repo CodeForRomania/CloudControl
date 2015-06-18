@@ -14595,10 +14595,83 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("            ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("form");
+          dom.setAttribute(el1,"role","form");
+          dom.setAttribute(el1,"action","updateProfile");
+          dom.setAttribute(el1,"on","submit");
+          var el2 = dom.createTextNode("\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2,"class","box-body");
+          var el3 = dom.createTextNode("\n                    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3,"class","form-group");
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("label");
+          dom.setAttribute(el4,"for","email");
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                    ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n                    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3,"class","form-group");
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("label");
+          dom.setAttribute(el4,"for","password");
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                    ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n                ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createComment(" /.box-body ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2,"class","box-footer");
+          var el3 = dom.createTextNode("\n                    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("button");
+          dom.setAttribute(el3,"class","btn btn-primary");
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n                ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n            ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
           return el0;
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
+          var hooks = env.hooks, inline = hooks.inline, get = hooks.get;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -14616,6 +14689,20 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           } else {
             fragment = this.build(dom);
           }
+          var element3 = dom.childAt(fragment, [1]);
+          var element4 = dom.childAt(element3, [1]);
+          var element5 = dom.childAt(element4, [1]);
+          var element6 = dom.childAt(element4, [3]);
+          var morph0 = dom.createMorphAt(dom.childAt(element5, [1]),0,0);
+          var morph1 = dom.createMorphAt(element5,3,3);
+          var morph2 = dom.createMorphAt(dom.childAt(element6, [1]),0,0);
+          var morph3 = dom.createMorphAt(element6,3,3);
+          var morph4 = dom.createMorphAt(dom.childAt(element3, [5, 1]),0,0);
+          inline(env, morph0, context, "t-tr", ["profile.email"], {});
+          inline(env, morph1, context, "input", [], {"class": "form-control", "type": "email", "readonly": "readonly", "id": "email", "value": get(env, context, "session.currentUser.email")});
+          inline(env, morph2, context, "t-tr", ["profile.password"], {});
+          inline(env, morph3, context, "input", [], {"type": "password", "class": "form-control", "id": "password", "placeholder": "Password", "value": get(env, context, "password")});
+          inline(env, morph4, context, "t-tr", ["general.submit"], {});
           return fragment;
         }
       };
@@ -14629,6 +14716,8 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode(" ");
+          dom.appendChild(el0, el1);
           return el0;
         },
         render: function render(context, env, contextualElement) {
@@ -14655,6 +14744,59 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
       };
     }());
     var child2 = (function() {
+      var child0 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.12.0",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("                    ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("div");
+            dom.setAttribute(el1,"class","form-group");
+            var el2 = dom.createTextNode("\n                        ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("label");
+            dom.setAttribute(el2,"for","avatarImage");
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            var hooks = env.hooks, inline = hooks.inline;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 1]),0,0);
+            inline(env, morph0, context, "t-tr", ["profile.avatarPreview"], {});
+            return fragment;
+          }
+        };
+      }());
       return {
         isHTMLBars: true,
         revision: "Ember@1.12.0",
@@ -14663,10 +14805,69 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("            ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("form");
+          dom.setAttribute(el1,"role","form");
+          dom.setAttribute(el1,"action","updateProfile");
+          dom.setAttribute(el1,"on","submit");
+          var el2 = dom.createTextNode("\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2,"class","box-body");
+          var el3 = dom.createTextNode("\n                    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3,"class","form-group");
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("label");
+          dom.setAttribute(el4,"for","avatarImage");
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                    ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n\n");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createComment("");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("                ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createComment(" /.box-body ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2,"class","box-footer");
+          var el3 = dom.createTextNode("\n                    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("button");
+          dom.setAttribute(el3,"class","btn btn-primary");
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n                ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n            ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n\n");
+          dom.appendChild(el0, el1);
           return el0;
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
+          var hooks = env.hooks, inline = hooks.inline, get = hooks.get, block = hooks.block;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -14684,6 +14885,17 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           } else {
             fragment = this.build(dom);
           }
+          var element0 = dom.childAt(fragment, [1]);
+          var element1 = dom.childAt(element0, [1]);
+          var element2 = dom.childAt(element1, [1]);
+          var morph0 = dom.createMorphAt(dom.childAt(element2, [1]),0,0);
+          var morph1 = dom.createMorphAt(element2,3,3);
+          var morph2 = dom.createMorphAt(element1,3,3);
+          var morph3 = dom.createMorphAt(dom.childAt(element0, [5, 1]),0,0);
+          inline(env, morph0, context, "t-tr", ["profile.avatarImage"], {});
+          inline(env, morph1, context, "input", [], {"class": "form-control", "type": "file", "id": "avatarImage"});
+          block(env, morph2, context, "liquid-unless", [get(env, context, "flaggedDrilled")], {"class": "drilldown"}, child0, null);
+          inline(env, morph3, context, "t-tr", ["general.upload"], {});
           return fragment;
         }
       };
@@ -14702,7 +14914,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("section");
         dom.setAttribute(el1,"class","content-header");
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n    ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("h1");
         var el3 = dom.createTextNode("\n    ");
@@ -14742,7 +14954,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
         dom.setAttribute(el3,"class","col-xs-12 col-sm-6 col-md-4");
-        var el4 = dom.createTextNode("\n");
+        var el4 = dom.createTextNode("\n            ");
         dom.appendChild(el3, el4);
         var el4 = dom.createComment(" settings ");
         dom.appendChild(el3, el4);
@@ -14750,20 +14962,22 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         dom.appendChild(el3, el4);
         var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("            ");
+        dom.appendChild(el3, el4);
         var el4 = dom.createComment(" general accoutns settings ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n");
+        var el4 = dom.createTextNode("\n            ");
         dom.appendChild(el3, el4);
         var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("        ");
+        var el4 = dom.createTextNode("\n        ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
         dom.setAttribute(el3,"class","col-xs-12 col-sm-6 col-md-8");
-        var el4 = dom.createTextNode("\n");
+        var el4 = dom.createTextNode("\n            ");
         dom.appendChild(el3, el4);
         var el4 = dom.createComment(" avatar settingss ");
         dom.appendChild(el3, el4);
@@ -14808,14 +15022,14 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         } else {
           fragment = this.build(dom);
         }
-        var element0 = dom.childAt(fragment, [2, 1]);
-        var element1 = dom.childAt(fragment, [6, 1]);
-        var element2 = dom.childAt(element1, [1]);
-        var morph0 = dom.createMorphAt(element0,3,3);
-        var morph1 = dom.createMorphAt(dom.childAt(element0, [5]),0,0);
-        var morph2 = dom.createMorphAt(element2,3,3);
-        var morph3 = dom.createMorphAt(element2,6,6);
-        var morph4 = dom.createMorphAt(dom.childAt(element1, [3]),3,3);
+        var element7 = dom.childAt(fragment, [2, 1]);
+        var element8 = dom.childAt(fragment, [6, 1]);
+        var element9 = dom.childAt(element8, [1]);
+        var morph0 = dom.createMorphAt(element7,3,3);
+        var morph1 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
+        var morph2 = dom.createMorphAt(element9,3,3);
+        var morph3 = dom.createMorphAt(element9,7,7);
+        var morph4 = dom.createMorphAt(dom.childAt(element8, [3]),3,3);
         var morph5 = dom.createMorphAt(fragment,8,8,contextualElement);
         inline(env, morph0, context, "t-tr", ["profile.title"], {});
         inline(env, morph1, context, "t-tr", ["profile.subtitle"], {});

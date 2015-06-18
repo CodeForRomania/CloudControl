@@ -10,7 +10,9 @@
         "users": "Users",
         "logs": "Logs",
         "search": "Search...",
-        "profile": "Profile"
+        "profile": "Profile",
+        "submit": "Submit",
+        "upload": "Upload"
     },
     "header": {
         "toggleNavigation": "Toggle navigation"
@@ -25,8 +27,12 @@
         "subtitle": "Manage your profile",
         "name": "Name",
         "avatar": "Avatar picture",
+        "avatarImage": "Picture/URL",
+        "avatarPreview": "Preview",
         "settings": "Settings",
-        "linkedAccounts": "Linked accounts"
+        "linkedAccounts": "Linked accounts",
+        "email": "Email address",
+        "password": "Password"
     },
     "sidebar": {
         "mainNavigation": "MAIN NAVIGATION",

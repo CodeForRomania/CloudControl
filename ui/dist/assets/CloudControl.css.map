@@ -2,7 +2,7 @@
 	"version": 3,
 	"file": "CloudControl.css",
 	"sources": [
-		"../../tree_merger-tmp_dest_dir-ElbNOF61.tmp/app/styles/app.scss"
+		"../../tree_merger-tmp_dest_dir-Vo6UeKrd.tmp/app/styles/app.scss"
 	],
 	"sourcesContent": [
 		"// TODO: This is a hack... need a better way to override original template may be needed.\n.skin-blue{\n    .treeview-menu>li>a.active{\n      color: #FFF;\n    }\n    .sidebar-menu>li>a.active {\n      color: #FFF;\n      background: #1E282C;\n      border-left-color: #3C8DBC;\n    }\n}\n.login-page, .register-page {\n  background: #000 url(/dist/img/bgnoise.png);\n}\n\n#loading.row {\n  padding-top: 2em;\n}\n\n"
