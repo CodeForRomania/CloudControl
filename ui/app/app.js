@@ -15,7 +15,7 @@ var App = Ember.Application.extend({
 loadInitializers(App, config.modulePrefix);
 
 i18n.init({
-    'lng': 'en'
+    //'lng': 'en'
 });
 
 export default App;

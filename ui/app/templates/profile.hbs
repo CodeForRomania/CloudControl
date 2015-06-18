@@ -1,0 +1,35 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    <i class="fa fa-dashboard"></i> {{t-tr 'profile.title'}}
+    <small>{{t-tr 'profile.subtitle'}}</small>
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+<!-- settings -->
+            {{#box-widget t_title='profile.settings' colorSceme = 'info' }}
+            {{/box-widget}}
+<!-- general accoutns settings -->
+            {{#box-widget
+                t_title='profile.linkedAccounts'
+                colorSceme = 'info'
+            }}
+            {{/box-widget}}
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-8">
+<!-- avatar settingss -->
+            {{#box-widget
+                t_title = 'profile.avatar'
+                colorSceme = "info"
+            }}
+            {{/box-widget}}
+        </div>
+    </div>
+</section>
+
+{{outlet}}

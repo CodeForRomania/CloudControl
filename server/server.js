@@ -48,8 +48,8 @@ var control = function(req, res, next) {
 };
 
 server.get('/api/users/:user_id', bearerAuth,  function(req, res, next) {
-    console.log(req.user);
-    res.json(req.user);
+    console.log('req', req.user);
+    res.send(req.user);
     next();
 });
 

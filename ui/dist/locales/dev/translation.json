@@ -1,4 +1,54 @@
 {
-    "dashboard_title": "<b>CC</b>DASHBOARD"
+    "dashboard_title": "<b>CC</b> DASHBOARD",
+    "general": {
+        "appVersion": "0.0.1",
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "version": "Version",
+        "settings": "Settings",
+        "tools": "Tools",
+        "users": "Users",
+        "logs": "Logs",
+        "search": "Search...",
+        "profile": "Profile"
+    },
+    "header": {
+        "toggleNavigation": "Toggle navigation"
+    },
+    "login": {
+        "title": "Sign in to start your session",
+        "rememberMe": "Remember Me",
+        "signIn": "Sign In"
+    },
+    "profile": {
+        "title": "My profile",
+        "subtitle": "Manage your profile",
+        "name": "Name",
+        "avatar": "Avatar picture",
+        "settings": "Settings",
+        "linkedAccounts": "Linked accounts"
+    },
+    "sidebar": {
+        "mainNavigation": "MAIN NAVIGATION",
+        "settings": {
+            "amazon": "Amazon",
+            "azure": "Azure",
+            "digitalOcean": "DigitalOcean",
+            "HP": "HP",
+            "joyent": "Joyent",
+            "openstack": "Openstack",
+            "rackspace": "Rackspace"
+        },
+        "users": {
+            "list": "User list",
+            "groups": "Groups",
+            "roles": "Roles"
+        }
+    },
+    "footer": {
+        "buildByUrl": "http://codefor.ro",
+        "buildBy": "CADA",
+        "copyright": "Copyright CodeforRo",
+        "copyrightUrl": "http://codefor.ro"
+    }
 }
-

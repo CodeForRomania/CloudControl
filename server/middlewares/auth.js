@@ -27,10 +27,9 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
                         if (response !== user.password) {
                             return done(null, false);
                         }
-                        console.log('sequelize find user', user);
                         return done(null, {
-                            username: user.email,
-                            id: user.user_id
+                            email: user.email,
+                            user_id: user.user_id
                         });
                     });
                 });
@@ -42,7 +41,7 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
                     return done(err);
                 }
                 return done(null, {
-                    username: decoded.iss,
+                    email: decoded.iss,
                     id: decoded.uid
                 });
             });
@@ -85,7 +84,6 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
                             salt: salt
                         })
                         .then(function(user) {
-                            console.log("User created", user);
                             if (user) {
                                 res.json({
                                     email: user.email
@@ -94,7 +92,6 @@ module.exports = function(db, jwt_secret, jwt_expiry) {
                             }
                         })
                         .catch(function(err) {
-                            console.log(err);
 
                             var error = new Error(err);
                             error.status = 500;

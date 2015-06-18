@@ -58,7 +58,6 @@ app.import( AdminLTE_PATH + '/bootstrap/js/bootstrap.min.js');
 
 // jQuery UI 1.11.4
 app.import( BOWER_COMPONENT_PATH + '/jquery-ui/jquery-ui.min.js');
-app.import( BOWER_COMPONENT_PATH + '/jquery-cookie/jquery.cookie.js');
 
 // raphael/2.1.0
 // app.import( AdminLTE_PATH + '/plugins/raphael/raphael-min.js');
@@ -98,6 +97,11 @@ app.import( AdminLTE_PATH + '/plugins/slimScroll/jquery.slimscroll.min.js');
 
 // I18next plugin
 app.import( BOWER_COMPONENT_PATH + '/i18next/i18next.min.js');
+
+/*
+ * handlebars helpers
+ *app.import( BOWER_COMPONENT_PATH + '/handlebars.nested/dist/handlebars.nested.min.js');
+ */
 
 //  Custom stuff:
 app.import('vendor/socket.io/socket.io.min.js');

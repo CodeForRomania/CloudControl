@@ -43,11 +43,11 @@ define('CloudControl/app', ['exports', 'ember', 'ember/resolver', 'ember/load-in
 
     loadInitializers['default'](App, config['default'].modulePrefix);
 
-    i18n.init({
-        'lng': 'en'
-    });
+    i18n.init({});
 
     exports['default'] = App;
+
+    //'lng': 'en'
 
 });
 define('CloudControl/components/active-link', ['exports', 'ember-cli-active-link-wrapper/components/active-link'], function (exports, activeLink) {
@@ -369,89 +369,90 @@ define('CloudControl/components/application-sidebar', ['exports', 'ember'], func
 });
 define('CloudControl/components/box-widget', ['exports', 'ember'], function (exports, Ember) {
 
-	'use strict';
+    'use strict';
 
-	exports['default'] = Ember['default'].Component.extend({
-		isCollapsed: false,
-		isClosed: false,
+    exports['default'] = Ember['default'].Component.extend({
+        isCollapsed: false,
+        isClosed: false,
 
-		closable: false,
-		collapsable: true,
+        closable: false,
+        collapsable: true,
 
-		title: null,
-		colorSceme: null,
-		buttons: false,
+        title: null,
+        t_title: null,
+        colorSceme: null,
+        buttons: false,
 
-		classNames: ['box'],
-		classNameBindings: ['boxClass', 'backgroundClass', 'solid:box-solid'],
+        classNames: ['box'],
+        classNameBindings: ['boxClass', 'backgroundClass', 'solid:box-solid'],
 
-		/***************************
-	 **	External states
-	 ****************************/
-		isLoading: false,
+        /***************************
+        **  External states
+        ****************************/
+        isLoading: false,
 
-		/***************************
-	 **	Computed states
-	 ****************************/
-		boxClass: (function () {
-			var colorSceme = this.get('colorSceme');
-			if (!colorSceme) {
-				return '';
-			}
-			return 'box-' + colorSceme;
-		}).property('colorSceme'),
+        /***************************
+        **  Computed states
+        ****************************/
+        boxClass: (function () {
+            var colorSceme = this.get('colorSceme');
+            if (!colorSceme) {
+                return '';
+            }
+            return 'box-' + colorSceme;
+        }).property('colorSceme'),
 
-		buttonClass: (function () {
-			var buttons = this.get('buttons'),
-			    colorSceme = this.get('colorSceme');
-			if (!buttons) {
-				return 'btn-box-tool';
-			}
-			if (!colorSceme) {
-				colorSceme = 'default';
-			}
-			return 'btn-xs btn-' + colorSceme;
-		}).property('buttons', 'colorSceme'),
+        buttonClass: (function () {
+            var buttons = this.get('buttons'),
+                colorSceme = this.get('colorSceme');
+            if (!buttons) {
+                return 'btn-box-tool';
+            }
+            if (!colorSceme) {
+                colorSceme = 'default';
+            }
+            return 'btn-xs btn-' + colorSceme;
+        }).property('buttons', 'colorSceme'),
 
-		backgroundClass: (function () {
-			var background = this.get('background');
-			if (!background) {
-				return '';
-			}
-			return 'box-solid bg-' + background;
-		}).property('background'),
+        backgroundClass: (function () {
+            var background = this.get('background');
+            if (!background) {
+                return '';
+            }
+            return 'box-solid bg-' + background;
+        }).property('background'),
 
-		labelClass: (function () {
-			var colorSceme = this.get('colorSceme');
-			if (!colorSceme) {
-				return '';
-			}
-			return 'label-' + colorSceme;
-		}).property('colorSceme'),
+        labelClass: (function () {
+            var colorSceme = this.get('colorSceme');
+            if (!colorSceme) {
+                return '';
+            }
+            return 'label-' + colorSceme;
+        }).property('colorSceme'),
 
-		/***************************
-	 **	Actions
-	 ****************************/
+        /***************************
+        **  Actions
+        ****************************/
 
-		actions: {
-			toggleCollapse: function toggleCollapse() {
-				if (!this.get('collapsable')) {
-					return;
-				}
-				var box = this.$();
-				this.toggleProperty('isCollapsed');
-				var bf = box.find('.box-body, .box-footer');
-				var isCollapsed = this.get('isCollapsed');
-				if (isCollapsed) {
-					bf.slideUp(200, function () {});
-				} else {
-					bf.slideDown(200, function () {});
-				}
-			},
-			close: function close() {
-				this.$().slideUp();
-			} }
-	});
+        actions: {
+            toggleCollapse: function toggleCollapse() {
+                if (!this.get('collapsable')) {
+                    return;
+                }
+                var box = this.$();
+                this.toggleProperty('isCollapsed');
+                var bf = box.find('.box-body, .box-footer');
+                var isCollapsed = this.get('isCollapsed');
+                if (isCollapsed) {
+                    bf.slideUp(200, function () {});
+                } else {
+                    bf.slideDown(200, function () {});
+                }
+            },
+            close: function close() {
+                this.$().slideUp();
+            } }
+    });
 
 });
 define('CloudControl/components/fm-checkbox', ['exports', 'ember-form-master-2000/components/fm-checkbox'], function (exports, FmCheckboxComponent) {
@@ -1646,6 +1647,13 @@ define('CloudControl/controllers/object', ['exports', 'ember'], function (export
 	exports['default'] = Ember['default'].Controller;
 
 });
+define('CloudControl/controllers/profile', ['exports', 'ember'], function (exports, Ember) {
+
+	'use strict';
+
+	exports['default'] = Ember['default'].Controller.extend({});
+
+});
 define('CloudControl/controllers/settings', ['exports', 'ember'], function (exports, Ember) {
 
     'use strict';
@@ -2594,69 +2602,71 @@ define('CloudControl/models/user', ['exports', 'ember-data'], function (exports,
 });
 define('CloudControl/router', ['exports', 'ember', 'CloudControl/config/environment'], function (exports, Ember, config) {
 
-    'use strict';
+  'use strict';
 
-    var Router = Ember['default'].Router.extend({
-        location: config['default'].locationType
+  var Router = Ember['default'].Router.extend({
+    location: config['default'].locationType
+  });
+
+  Router.map(function () {
+    this.route('index', {
+      path: '/'
     });
 
-    Router.map(function () {
-        this.route('index', {
-            path: '/'
-        });
+    this.route('login');
+    this.route('signup');
 
-        this.route('login');
-        this.route('signup');
+    this.route('logs');
+    this.route('widgets');
+    this.route('twitter');
+    this.route('general-ui');
+    this.route('comingsoon');
+    this.route('ui-icons');
+    this.route('ui-buttons');
+    this.route('ui-timeline');
+    this.route('ui-modals');
 
-        this.route('logs');
-        this.route('widgets');
-        this.route('twitter');
-        this.route('general-ui');
-        this.route('comingsoon');
-        this.route('ui-icons');
-        this.route('ui-buttons');
-        this.route('ui-timeline');
-        this.route('ui-modals');
-
-        this.resource('settings', function () {
-            this.route('amazon');
-            this.route('azure');
-            this.route('digitalOcean');
-            this.route('hp');
-            this.route('joyent');
-            this.route('openstack');
-            this.route('rackspace');
-        });
-        this.resource('tools', function () {
-            this.route('index');
-        });
-
-        this.resource('users', function () {
-            this.route('list');
-            this.route('roles');
-            this.route('groups');
-        });
+    this.resource('settings', function () {
+      this.route('amazon');
+      this.route('azure');
+      this.route('digitalOcean');
+      this.route('hp');
+      this.route('joyent');
+      this.route('openstack');
+      this.route('rackspace');
+    });
+    this.resource('tools', function () {
+      this.route('index');
     });
 
-    Ember['default'].Route.reopen({
-
-        activate: function activate() {
-            var cssClass = this.toCssClass();
-            if (cssClass !== 'application') {
-                Ember['default'].$('body').addClass(cssClass);
-            }
-        },
-
-        deactivate: function deactivate() {
-            Ember['default'].$('body').removeClass(this.toCssClass());
-        },
-
-        toCssClass: function toCssClass() {
-            return this.routeName.replace(/\./g, '-').dasherize();
-        }
-
+    this.resource('users', function () {
+      this.route('list');
+      this.route('roles');
+      this.route('groups');
     });
-    exports['default'] = Router;
+
+    this.route('profile');
+  });
+
+  Ember['default'].Route.reopen({
+
+    activate: function activate() {
+      var cssClass = this.toCssClass();
+      if (cssClass !== 'application') {
+        Ember['default'].$('body').addClass(cssClass);
+      }
+    },
+
+    deactivate: function deactivate() {
+      Ember['default'].$('body').removeClass(this.toCssClass());
+    },
+
+    toCssClass: function toCssClass() {
+      return this.routeName.replace(/\./g, '-').dasherize();
+    }
+
+  });
+  exports['default'] = Router;
 
 });
 define('CloudControl/routes/application', ['exports', 'ember', 'simple-auth/mixins/application-route-mixin'], function (exports, Ember, ApplicationRouteMixin) {
@@ -2725,6 +2735,13 @@ define('CloudControl/routes/logs', ['exports', 'ember'], function (exports, Embe
 	'use strict';
 
 	exports['default'] = Ember['default'].Route.extend({});
+
+});
+define('CloudControl/routes/profile', ['exports', 'ember', 'simple-auth/mixins/authenticated-route-mixin'], function (exports, Ember, AuthenticatedRouteMixin) {
+
+	'use strict';
+
+	exports['default'] = Ember['default'].Route.extend(AuthenticatedRouteMixin['default'], {});
 
 });
 define('CloudControl/routes/settings', ['exports', 'ember'], function (exports, Ember) {
@@ -3770,6 +3787,49 @@ define('CloudControl/templates/application-header/user-menu', ['exports'], funct
   'use strict';
 
   exports['default'] = Ember.HTMLBars.template((function() {
+    var child0 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.12.0",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode(" ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode(" ");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          var hooks = env.hooks, inline = hooks.inline;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
+          inline(env, morph0, context, "t-tr", ["general.profile"], {});
+          return fragment;
+        }
+      };
+    }());
     return {
       isHTMLBars: true,
       revision: "Ember@1.12.0",
@@ -3908,11 +3968,7 @@ define('CloudControl/templates/application-header/user-menu', ['exports'], funct
         dom.setAttribute(el4,"class","pull-left");
         var el5 = dom.createTextNode("\n                ");
         dom.appendChild(el4, el5);
-        var el5 = dom.createElement("a");
-        dom.setAttribute(el5,"href","#");
-        dom.setAttribute(el5,"class","btn btn-default btn-flat");
-        var el6 = dom.createTextNode("Profile");
-        dom.appendChild(el5, el6);
+        var el5 = dom.createComment("");
         dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("\n            ");
         dom.appendChild(el4, el5);
@@ -3947,7 +4003,7 @@ define('CloudControl/templates/application-header/user-menu', ['exports'], funct
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, content = hooks.content, element = hooks.element;
+        var hooks = env.hooks, content = hooks.content, block = hooks.block, element = hooks.element;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -3966,10 +4022,13 @@ define('CloudControl/templates/application-header/user-menu', ['exports'], funct
           fragment = this.build(dom);
         }
         var element0 = dom.childAt(fragment, [2]);
-        var element1 = dom.childAt(element0, [3, 11, 3, 1]);
+        var element1 = dom.childAt(element0, [3, 11]);
+        var element2 = dom.childAt(element1, [3, 1]);
         var morph0 = dom.createMorphAt(dom.childAt(element0, [1, 3]),0,0);
-        content(env, morph0, context, "session.currentUser.username");
-        element(env, element1, context, "action", ["invalidateSession"], {});
+        var morph1 = dom.createMorphAt(dom.childAt(element1, [1]),1,1);
+        content(env, morph0, context, "session.currentUser.email");
+        block(env, morph1, context, "link-to", ["profile"], {"class": "btn btn-default btn-flat"}, child0, null);
+        element(env, element2, context, "action", ["invalidateSession"], {});
         return fragment;
       }
     };
@@ -4166,11 +4225,11 @@ define('CloudControl/templates/comingsoon', ['exports'], function (exports) {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("				This project has recently started and the sections you are looking at has not been implemented yet.");
+          var el1 = dom.createTextNode("                This project has recently started and the sections you are looking at has not been implemented yet.");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("br");
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n				Star, Fork, Follow, and keep in touch :)\n");
+          var el1 = dom.createTextNode("\n                Star, Fork, Follow, and keep in touch :)\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -4207,11 +4266,11 @@ define('CloudControl/templates/comingsoon', ['exports'], function (exports) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("section");
         dom.setAttribute(el1,"class","content");
-        var el2 = dom.createTextNode("\n\n	");
+        var el2 = dom.createTextNode("\n\n    ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2,"class","row");
-        var el3 = dom.createTextNode("\n		");
+        var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
         dom.setAttribute(el3,"class","col-xs-12");
@@ -4219,14 +4278,16 @@ define('CloudControl/templates/comingsoon', ['exports'], function (exports) {
         dom.appendChild(el3, el4);
         var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("		");
+        var el4 = dom.createTextNode("        ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n	");
+        var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n\n");
         dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
@@ -5360,7 +5421,6 @@ define('CloudControl/templates/components/application-sidebar', ['exports'], fun
         dom.setAttribute(el4,"type","text");
         dom.setAttribute(el4,"name","q");
         dom.setAttribute(el4,"class","form-control");
-        dom.setAttribute(el4,"placeholder","Search...");
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n            ");
         dom.appendChild(el3, el4);
@@ -5612,7 +5672,7 @@ define('CloudControl/templates/components/application-sidebar', ['exports'], fun
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, content = hooks.content, inline = hooks.inline, block = hooks.block;
+        var hooks = env.hooks, content = hooks.content, subexpr = hooks.subexpr, concat = hooks.concat, attribute = hooks.attribute, inline = hooks.inline, block = hooks.block;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -5631,32 +5691,35 @@ define('CloudControl/templates/components/application-sidebar', ['exports'], fun
           fragment = this.build(dom);
         }
         var element0 = dom.childAt(fragment, [2]);
-        var element1 = dom.childAt(element0, [13]);
-        var element2 = dom.childAt(element1, [7]);
-        var element3 = dom.childAt(element2, [3]);
-        var element4 = dom.childAt(element3, [1]);
-        var element5 = dom.childAt(element4, [3]);
-        var element6 = dom.childAt(element3, [3]);
-        var element7 = dom.childAt(element6, [3]);
+        var element1 = dom.childAt(element0, [7, 1, 1]);
+        var element2 = dom.childAt(element0, [13]);
+        var element3 = dom.childAt(element2, [7]);
+        var element4 = dom.childAt(element3, [3]);
+        var element5 = dom.childAt(element4, [1]);
+        var element6 = dom.childAt(element5, [3]);
+        var element7 = dom.childAt(element4, [3]);
+        var element8 = dom.childAt(element7, [3]);
         var morph0 = dom.createMorphAt(dom.childAt(element0, [3, 3, 1]),0,0);
-        var morph1 = dom.createMorphAt(dom.childAt(element1, [1]),0,0);
-        var morph2 = dom.createMorphAt(dom.childAt(element1, [3]),1,1);
-        var morph3 = dom.createMorphAt(element2,1,1);
-        var morph4 = dom.createMorphAt(element4,1,1);
-        var morph5 = dom.createMorphAt(dom.childAt(element5, [1]),0,0);
-        var morph6 = dom.createMorphAt(dom.childAt(element5, [3]),0,0);
-        var morph7 = dom.createMorphAt(dom.childAt(element5, [5]),0,0);
-        var morph8 = dom.createMorphAt(dom.childAt(element5, [7]),0,0);
-        var morph9 = dom.createMorphAt(dom.childAt(element5, [9]),0,0);
-        var morph10 = dom.createMorphAt(dom.childAt(element5, [11]),0,0);
-        var morph11 = dom.createMorphAt(dom.childAt(element5, [13]),0,0);
-        var morph12 = dom.createMorphAt(element6,1,1);
-        var morph13 = dom.createMorphAt(dom.childAt(element7, [1]),0,0);
-        var morph14 = dom.createMorphAt(dom.childAt(element7, [3]),0,0);
-        var morph15 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
-        var morph16 = dom.createMorphAt(dom.childAt(element3, [5]),1,1);
-        var morph17 = dom.createMorphAt(dom.childAt(element1, [11]),0,0);
-        content(env, morph0, context, "session.currentUser.username");
+        var attrMorph0 = dom.createAttrMorph(element1, 'placeholder');
+        var morph1 = dom.createMorphAt(dom.childAt(element2, [1]),0,0);
+        var morph2 = dom.createMorphAt(dom.childAt(element2, [3]),1,1);
+        var morph3 = dom.createMorphAt(element3,1,1);
+        var morph4 = dom.createMorphAt(element5,1,1);
+        var morph5 = dom.createMorphAt(dom.childAt(element6, [1]),0,0);
+        var morph6 = dom.createMorphAt(dom.childAt(element6, [3]),0,0);
+        var morph7 = dom.createMorphAt(dom.childAt(element6, [5]),0,0);
+        var morph8 = dom.createMorphAt(dom.childAt(element6, [7]),0,0);
+        var morph9 = dom.createMorphAt(dom.childAt(element6, [9]),0,0);
+        var morph10 = dom.createMorphAt(dom.childAt(element6, [11]),0,0);
+        var morph11 = dom.createMorphAt(dom.childAt(element6, [13]),0,0);
+        var morph12 = dom.createMorphAt(element7,1,1);
+        var morph13 = dom.createMorphAt(dom.childAt(element8, [1]),0,0);
+        var morph14 = dom.createMorphAt(dom.childAt(element8, [3]),0,0);
+        var morph15 = dom.createMorphAt(dom.childAt(element8, [5]),0,0);
+        var morph16 = dom.createMorphAt(dom.childAt(element4, [5]),1,1);
+        var morph17 = dom.createMorphAt(dom.childAt(element2, [11]),0,0);
+        content(env, morph0, context, "session.currentUser.email");
+        attribute(env, attrMorph0, element1, "placeholder", concat(env, [subexpr(env, context, "t-tr", ["general.search"], {})]));
         inline(env, morph1, context, "t-tr", ["sidebar.mainNavigation"], {});
         block(env, morph2, context, "link-to", ["index"], {}, child0, null);
         block(env, morph3, context, "link-to", ["tools"], {}, child1, null);
@@ -5735,17 +5798,58 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("  		");
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          var hooks = env.hooks, get = hooks.get, inline = hooks.inline;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+          dom.insertBoundary(fragment, null);
+          dom.insertBoundary(fragment, 0);
+          inline(env, morph0, context, "t-tr", [get(env, context, "t_title")], {});
+          return fragment;
+        }
+      };
+    }());
+    var child2 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.12.0",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("        ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("span");
-          var el2 = dom.createTextNode("\n  			");
+          var el2 = dom.createTextNode("\n            ");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n  		");
+          var el2 = dom.createTextNode("\n        ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -5777,7 +5881,7 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         }
       };
     }());
-    var child2 = (function() {
+    var child3 = (function() {
       return {
         isHTMLBars: true,
         revision: "Ember@1.12.0",
@@ -5786,13 +5890,15 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("		");
+          var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("button");
           var el2 = dom.createElement("i");
           dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n        ");
+          dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -5825,7 +5931,7 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         }
       };
     }());
-    var child3 = (function() {
+    var child4 = (function() {
       return {
         isHTMLBars: true,
         revision: "Ember@1.12.0",
@@ -5834,14 +5940,16 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("		");
+          var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("button");
           var el2 = dom.createElement("i");
           dom.setAttribute(el2,"class","fa fa-times");
           dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n        ");
+          dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -5872,7 +5980,7 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         }
       };
     }());
-    var child4 = (function() {
+    var child5 = (function() {
       return {
         isHTMLBars: true,
         revision: "Ember@1.12.0",
@@ -5881,14 +5989,12 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("	");
-          dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
-          var el2 = dom.createTextNode("\n	  	");
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n	");
+          var el2 = dom.createTextNode("\n");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -5915,7 +6021,7 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
           } else {
             fragment = this.build(dom);
           }
-          var element0 = dom.childAt(fragment, [1]);
+          var element0 = dom.childAt(fragment, [0]);
           var morph0 = dom.createMorphAt(element0,1,1);
           element(env, element0, context, "bind-attr", [], {"class": ":box-footer footerClass"});
           inline(env, morph0, context, "partial", [get(env, context, "footer")], {});
@@ -5923,7 +6029,7 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         }
       };
     }());
-    var child5 = (function() {
+    var child6 = (function() {
       return {
         isHTMLBars: true,
         revision: "Ember@1.12.0",
@@ -5932,16 +6038,16 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("	");
+          var el1 = dom.createTextNode("\n");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
           dom.setAttribute(el1,"class","overlay");
-          var el2 = dom.createTextNode("\n		");
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("i");
           dom.setAttribute(el2,"class","fa fa-refresh fa-spin");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n	");
+          var el2 = dom.createTextNode("\n");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -5980,16 +6086,22 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n    ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("h3");
         dom.setAttribute(el2,"class","box-title");
+        var el3 = dom.createTextNode("\n        ");
+        dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode(" ");
+        var el3 = dom.createTextNode("\n        ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n    ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2,"class","box-tools pull-right");
@@ -5997,11 +6109,15 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
+        var el3 = dom.createTextNode(" ");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("  ");
+        var el3 = dom.createTextNode(" ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("  \n    ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -6010,7 +6126,7 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n    ");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
@@ -6020,6 +6136,8 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode(" ");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
@@ -6046,26 +6164,29 @@ define('CloudControl/templates/components/box-widget', ['exports'], function (ex
           fragment = this.build(dom);
         }
         var element5 = dom.childAt(fragment, [0]);
-        var element6 = dom.childAt(element5, [3]);
-        var element7 = dom.childAt(fragment, [2]);
-        var morph0 = dom.createMorphAt(dom.childAt(element5, [1]),0,0);
-        var morph1 = dom.createMorphAt(element6,1,1);
-        var morph2 = dom.createMorphAt(element6,2,2);
-        var morph3 = dom.createMorphAt(element6,3,3);
-        var morph4 = dom.createMorphAt(element7,1,1);
-        var morph5 = dom.createMorphAt(fragment,4,4,contextualElement);
-        var morph6 = dom.createMorphAt(fragment,5,5,contextualElement);
+        var element6 = dom.childAt(element5, [1]);
+        var element7 = dom.childAt(element5, [3]);
+        var element8 = dom.childAt(fragment, [2]);
+        var morph0 = dom.createMorphAt(element6,1,1);
+        var morph1 = dom.createMorphAt(element6,3,3);
+        var morph2 = dom.createMorphAt(element7,1,1);
+        var morph3 = dom.createMorphAt(element7,3,3);
+        var morph4 = dom.createMorphAt(element7,5,5);
+        var morph5 = dom.createMorphAt(element8,1,1);
+        var morph6 = dom.createMorphAt(fragment,4,4,contextualElement);
+        var morph7 = dom.createMorphAt(fragment,6,6,contextualElement);
         dom.insertBoundary(fragment, null);
         element(env, element5, context, "bind-attr", [], {"class": ":box-header background::with-border"});
         element(env, element5, context, "action", ["toggleCollapse"], {});
         block(env, morph0, context, "if", [get(env, context, "title")], {}, child0, null);
-        block(env, morph1, context, "if", [get(env, context, "label")], {}, child1, null);
-        block(env, morph2, context, "if", [get(env, context, "collapsable")], {}, child2, null);
-        block(env, morph3, context, "if", [get(env, context, "closable")], {}, child3, null);
-        element(env, element7, context, "bind-attr", [], {"class": ":box-body bodyClass"});
-        content(env, morph4, context, "yield");
-        block(env, morph5, context, "if", [get(env, context, "footer")], {}, child4, null);
-        block(env, morph6, context, "if", [get(env, context, "isLoading")], {}, child5, null);
+        block(env, morph1, context, "if", [get(env, context, "t_title")], {}, child1, null);
+        block(env, morph2, context, "if", [get(env, context, "label")], {}, child2, null);
+        block(env, morph3, context, "if", [get(env, context, "collapsable")], {}, child3, null);
+        block(env, morph4, context, "if", [get(env, context, "closable")], {}, child4, null);
+        element(env, element8, context, "bind-attr", [], {"class": ":box-body bodyClass"});
+        content(env, morph5, context, "yield");
+        block(env, morph6, context, "if", [get(env, context, "footer")], {}, child5, null);
+        block(env, morph7, context, "if", [get(env, context, "isLoading")], {}, child6, null);
         return fragment;
       }
     };
@@ -14454,6 +14575,254 @@ define('CloudControl/templates/logs', ['exports'], function (exports) {
         }
         var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 1, 1, 1]),1,1);
         inline(env, morph0, context, "t-tr", ["general.logs"], {});
+        return fragment;
+      }
+    };
+  }()));
+
+});
+define('CloudControl/templates/profile', ['exports'], function (exports) {
+
+  'use strict';
+
+  exports['default'] = Ember.HTMLBars.template((function() {
+    var child0 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.12.0",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          return fragment;
+        }
+      };
+    }());
+    var child1 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.12.0",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          return fragment;
+        }
+      };
+    }());
+    var child2 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.12.0",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          return fragment;
+        }
+      };
+    }());
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.12.0",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment(" Content Header (Page header) ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        dom.setAttribute(el1,"class","content-header");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("h1");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("i");
+        dom.setAttribute(el3,"class","fa fa-dashboard");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode(" ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("small");
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment(" Main content ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        dom.setAttribute(el1,"class","content");
+        var el2 = dom.createTextNode("\n    ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2,"class","row");
+        var el3 = dom.createTextNode("\n        ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3,"class","col-xs-12 col-sm-6 col-md-4");
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment(" settings ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment(" general accoutns settings ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("        ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n\n        ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3,"class","col-xs-12 col-sm-6 col-md-8");
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment(" avatar settingss ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("        ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, inline = hooks.inline, block = hooks.block, content = hooks.content;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var element0 = dom.childAt(fragment, [2, 1]);
+        var element1 = dom.childAt(fragment, [6, 1]);
+        var element2 = dom.childAt(element1, [1]);
+        var morph0 = dom.createMorphAt(element0,3,3);
+        var morph1 = dom.createMorphAt(dom.childAt(element0, [5]),0,0);
+        var morph2 = dom.createMorphAt(element2,3,3);
+        var morph3 = dom.createMorphAt(element2,6,6);
+        var morph4 = dom.createMorphAt(dom.childAt(element1, [3]),3,3);
+        var morph5 = dom.createMorphAt(fragment,8,8,contextualElement);
+        inline(env, morph0, context, "t-tr", ["profile.title"], {});
+        inline(env, morph1, context, "t-tr", ["profile.subtitle"], {});
+        block(env, morph2, context, "box-widget", [], {"t_title": "profile.settings", "colorSceme": "info"}, child0, null);
+        block(env, morph3, context, "box-widget", [], {"t_title": "profile.linkedAccounts", "colorSceme": "info"}, child1, null);
+        block(env, morph4, context, "box-widget", [], {"t_title": "profile.avatar", "colorSceme": "info"}, child2, null);
+        content(env, morph5, context, "outlet");
         return fragment;
       }
     };
@@ -37478,6 +37847,16 @@ define('CloudControl/tests/controllers/logs.jshint', function () {
   });
 
 });
+define('CloudControl/tests/controllers/profile.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - controllers');
+  test('controllers/profile.js should pass jshint', function() { 
+    ok(true, 'controllers/profile.js should pass jshint.'); 
+  });
+
+});
 define('CloudControl/tests/controllers/settings.jshint', function () {
 
   'use strict';
@@ -37732,6 +38111,16 @@ define('CloudControl/tests/routes/logs.jshint', function () {
   module('JSHint - routes');
   test('routes/logs.js should pass jshint', function() { 
     ok(true, 'routes/logs.js should pass jshint.'); 
+  });
+
+});
+define('CloudControl/tests/routes/profile.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - routes');
+  test('routes/profile.js should pass jshint', function() { 
+    ok(true, 'routes/profile.js should pass jshint.'); 
   });
 
 });
@@ -38308,6 +38697,32 @@ define('CloudControl/tests/unit/controllers/index-test.jshint', function () {
   });
 
 });
+define('CloudControl/tests/unit/controllers/profile-test', ['ember-qunit'], function (ember_qunit) {
+
+  'use strict';
+
+  ember_qunit.moduleFor('controller:profile', {});
+
+  // Replace this with your real tests.
+  ember_qunit.test('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
+  });
+
+  // Specify the other units that are required for this test.
+  // needs: ['controller:foo']
+
+});
+define('CloudControl/tests/unit/controllers/profile-test.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - unit/controllers');
+  test('unit/controllers/profile-test.js should pass jshint', function() { 
+    ok(true, 'unit/controllers/profile-test.js should pass jshint.'); 
+  });
+
+});
 define('CloudControl/tests/unit/controllers/twitter-test', ['ember-qunit'], function (ember_qunit) {
 
   'use strict';
@@ -38563,6 +38978,31 @@ define('CloudControl/tests/unit/routes/index-test.jshint', function () {
   });
 
 });
+define('CloudControl/tests/unit/routes/profile-test', ['ember-qunit'], function (ember_qunit) {
+
+  'use strict';
+
+  ember_qunit.moduleFor('route:profile', 'Unit | Route | profile', {});
+
+  ember_qunit.test('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+
+  // Specify the other units that are required for this test.
+  // needs: ['controller:foo']
+
+});
+define('CloudControl/tests/unit/routes/profile-test.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - unit/routes');
+  test('unit/routes/profile-test.js should pass jshint', function() { 
+    ok(true, 'unit/routes/profile-test.js should pass jshint.'); 
+  });
+
+});
 define('CloudControl/tests/unit/routes/twitter-test', ['ember-qunit'], function (ember_qunit) {
 
   'use strict';
@@ -38715,15 +39155,15 @@ define('CloudControl/tests/unit/routes/widgets-test.jshint', function () {
 });
 define('CloudControl/transitions', ['exports'], function (exports) {
 
-	'use strict';
+    'use strict';
 
-	exports['default'] = function () {
-		this.transition(this.hasClass('drilldown'), this.use('crossFade'));
+    exports['default'] = function () {
+        this.transition(this.hasClass('drilldown'), this.use('crossFade'));
 
-		this.transition(this.toRoute('widgets'), this.use('toLeft'), this.reverse('toRight'));
+        this.transition(this.toRoute('widgets'), this.use('toLeft'), this.reverse('toRight'));
 
-		this.transition(this.use('crossFade'));
-	}
+        this.transition(this.use('crossFade'));
+    }
 
 });
 define('CloudControl/transitions/cross-fade', ['exports', 'liquid-fire'], function (exports, liquid_fire) {
@@ -39166,7 +39606,7 @@ catch(err) {
 if (runningTests) {
   require("CloudControl/tests/test-helper");
 } else {
-  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.57f7ddc6"});
+  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.8f2dcf47"});
 }
 
 /* jshint ignore:end */
