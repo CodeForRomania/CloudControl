@@ -12,21 +12,27 @@
         <div class="col-xs-12 col-sm-6 col-md-4">
             <!-- settings -->
             {{#box-widget t_title='profile.settings' colorSceme = 'info' }}
-            <form role="form" action="updateProfile" on="submit">
+            <form role="form" data-toggle="validator" {{action 'updateProfile' on='submit' }}>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="email">{{t-tr 'profile.email'}}</label>
-                        {{input class="form-control" type="email" readonly="readonly" id="email" value=session.currentUser.email}}
+                        {{input class="form-control" type="email" readonly="readonly" id="email" value=email}}
                     </div>
                     <div class="form-group">
                         <label for="password">{{t-tr 'profile.password'}}</label>
-                        {{input type="password" class="form-control" id="password" placeholder="Password" value=password}}
+                        {{input type="password" class="form-control" id="password" placeholder="Password" data-minlength="8" required="" value=password}}
+                        <div class="help-block width-error">{{t-tr 'profile.passwordValidateNrChars'}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">{{t-tr 'profile.password'}}</label>
+                        {{input type="password" class="form-control" id="password1" placeholder="Password again" data-match="#password" required="" value=password1}}
+                        <div class="help-block width-error">{{t-tr 'profile.passwordDontMatch'}}</div>
                     </div>
                 </div>
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button class="btn btn-primary">{{t-tr 'general.submit'}}</button>
+                    <button class="btn btn-primary" type="submit">{{t-tr 'general.submit'}}</button>
                 </div>
             </form>
             {{/box-widget}}
@@ -37,7 +43,7 @@
         <div class="col-xs-12 col-sm-6 col-md-8">
             <!-- avatar settingss -->
             {{#box-widget t_title='profile.avatar' colorSceme = "info" }}
-            <form role="form" action="updateProfile" on="submit">
+            <form role="form" {{action 'updateProfileAvatar' on="submit"}}>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="avatarImage">{{t-tr 'profile.avatarImage'}}</label>

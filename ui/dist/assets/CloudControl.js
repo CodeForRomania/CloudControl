@@ -1649,9 +1649,34 @@ define('CloudControl/controllers/object', ['exports', 'ember'], function (export
 });
 define('CloudControl/controllers/profile', ['exports', 'ember'], function (exports, Ember) {
 
-	'use strict';
+    'use strict';
 
-	exports['default'] = Ember['default'].Controller.extend({});
+    exports['default'] = Ember['default'].Controller.extend({
+        email: '',
+        password: '',
+        password1: '',
+
+        init: function init() {
+            var _this = this;
+            this.get('session.currentUser').then(function (r) {
+                var email = r.get('email');
+                _this.set('email', email);
+            });
+        },
+        actions: {
+            updateProfile: function updateProfile() {
+                console.log('UpdateProfile');
+                var data = this.getProperties('email', 'password', 'password1');
+                if (data.password !== data.password1) {}
+                console.log(data);
+                return false;
+            },
+            updateProfileAvatar: function updateProfileAvatar() {
+                console.log('update profile avatar');
+            }
+        }
+
+    });
 
 });
 define('CloudControl/controllers/settings', ['exports', 'ember'], function (exports, Ember) {
@@ -2553,12 +2578,6 @@ define('CloudControl/models/profile', ['exports', 'ember-data'], function (expor
         user: DS['default'].belongsTo('user'),
         verified: DS['default'].attr('Boolean', {
             defaultValue: false
-        }),
-        updated: DS['default'].attr('Date', {
-            defaultValue: new Date()
-        }),
-        created: DS['default'].attr('Date', {
-            defaultValue: new Date()
         })
     });
 
@@ -2646,6 +2665,7 @@ define('CloudControl/router', ['exports', 'ember', 'CloudControl/config/environm
     });
 
     this.route('profile');
+    //this.route('updateProfile');
   });
 
   Ember['default'].Route.reopen({
@@ -14599,8 +14619,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("form");
           dom.setAttribute(el1,"role","form");
-          dom.setAttribute(el1,"action","updateProfile");
-          dom.setAttribute(el1,"on","submit");
+          dom.setAttribute(el1,"data-toggle","validator");
           var el2 = dom.createTextNode("\n                ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
@@ -14638,6 +14657,38 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           dom.appendChild(el3, el4);
           var el4 = dom.createComment("");
           dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("div");
+          dom.setAttribute(el4,"class","help-block width-error");
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                    ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n                    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3,"class","form-group");
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("label");
+          dom.setAttribute(el4,"for","password1");
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createComment("");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n                        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("div");
+          dom.setAttribute(el4,"class","help-block width-error");
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
           var el4 = dom.createTextNode("\n                    ");
           dom.appendChild(el3, el4);
           dom.appendChild(el2, el3);
@@ -14656,6 +14707,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           dom.appendChild(el2, el3);
           var el3 = dom.createElement("button");
           dom.setAttribute(el3,"class","btn btn-primary");
+          dom.setAttribute(el3,"type","submit");
           var el4 = dom.createComment("");
           dom.appendChild(el3, el4);
           dom.appendChild(el2, el3);
@@ -14671,7 +14723,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline, get = hooks.get;
+          var hooks = env.hooks, element = hooks.element, inline = hooks.inline, get = hooks.get;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -14693,16 +14745,26 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           var element4 = dom.childAt(element3, [1]);
           var element5 = dom.childAt(element4, [1]);
           var element6 = dom.childAt(element4, [3]);
+          var element7 = dom.childAt(element4, [5]);
           var morph0 = dom.createMorphAt(dom.childAt(element5, [1]),0,0);
           var morph1 = dom.createMorphAt(element5,3,3);
           var morph2 = dom.createMorphAt(dom.childAt(element6, [1]),0,0);
           var morph3 = dom.createMorphAt(element6,3,3);
-          var morph4 = dom.createMorphAt(dom.childAt(element3, [5, 1]),0,0);
+          var morph4 = dom.createMorphAt(dom.childAt(element6, [5]),0,0);
+          var morph5 = dom.createMorphAt(dom.childAt(element7, [1]),0,0);
+          var morph6 = dom.createMorphAt(element7,3,3);
+          var morph7 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
+          var morph8 = dom.createMorphAt(dom.childAt(element3, [5, 1]),0,0);
+          element(env, element3, context, "action", ["updateProfile"], {"on": "submit"});
           inline(env, morph0, context, "t-tr", ["profile.email"], {});
-          inline(env, morph1, context, "input", [], {"class": "form-control", "type": "email", "readonly": "readonly", "id": "email", "value": get(env, context, "session.currentUser.email")});
+          inline(env, morph1, context, "input", [], {"class": "form-control", "type": "email", "readonly": "readonly", "id": "email", "value": get(env, context, "email")});
           inline(env, morph2, context, "t-tr", ["profile.password"], {});
-          inline(env, morph3, context, "input", [], {"type": "password", "class": "form-control", "id": "password", "placeholder": "Password", "value": get(env, context, "password")});
-          inline(env, morph4, context, "t-tr", ["general.submit"], {});
+          inline(env, morph3, context, "input", [], {"type": "password", "class": "form-control", "id": "password", "placeholder": "Password", "data-minlength": "8", "required": "", "value": get(env, context, "password")});
+          inline(env, morph4, context, "t-tr", ["profile.passwordValidateNrChars"], {});
+          inline(env, morph5, context, "t-tr", ["profile.password"], {});
+          inline(env, morph6, context, "input", [], {"type": "password", "class": "form-control", "id": "password1", "placeholder": "Password again", "data-match": "#password", "required": "", "value": get(env, context, "password1")});
+          inline(env, morph7, context, "t-tr", ["profile.passwordDontMatch"], {});
+          inline(env, morph8, context, "t-tr", ["general.submit"], {});
           return fragment;
         }
       };
@@ -14809,8 +14871,6 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("form");
           dom.setAttribute(el1,"role","form");
-          dom.setAttribute(el1,"action","updateProfile");
-          dom.setAttribute(el1,"on","submit");
           var el2 = dom.createTextNode("\n                ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
@@ -14867,7 +14927,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline, get = hooks.get, block = hooks.block;
+          var hooks = env.hooks, element = hooks.element, inline = hooks.inline, get = hooks.get, block = hooks.block;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -14892,6 +14952,7 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
           var morph1 = dom.createMorphAt(element2,3,3);
           var morph2 = dom.createMorphAt(element1,3,3);
           var morph3 = dom.createMorphAt(dom.childAt(element0, [5, 1]),0,0);
+          element(env, element0, context, "action", ["updateProfileAvatar"], {"on": "submit"});
           inline(env, morph0, context, "t-tr", ["profile.avatarImage"], {});
           inline(env, morph1, context, "input", [], {"class": "form-control", "type": "file", "id": "avatarImage"});
           block(env, morph2, context, "liquid-unless", [get(env, context, "flaggedDrilled")], {"class": "drilldown"}, child0, null);
@@ -15022,14 +15083,14 @@ define('CloudControl/templates/profile', ['exports'], function (exports) {
         } else {
           fragment = this.build(dom);
         }
-        var element7 = dom.childAt(fragment, [2, 1]);
-        var element8 = dom.childAt(fragment, [6, 1]);
-        var element9 = dom.childAt(element8, [1]);
-        var morph0 = dom.createMorphAt(element7,3,3);
-        var morph1 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
-        var morph2 = dom.createMorphAt(element9,3,3);
-        var morph3 = dom.createMorphAt(element9,7,7);
-        var morph4 = dom.createMorphAt(dom.childAt(element8, [3]),3,3);
+        var element8 = dom.childAt(fragment, [2, 1]);
+        var element9 = dom.childAt(fragment, [6, 1]);
+        var element10 = dom.childAt(element9, [1]);
+        var morph0 = dom.createMorphAt(element8,3,3);
+        var morph1 = dom.createMorphAt(dom.childAt(element8, [5]),0,0);
+        var morph2 = dom.createMorphAt(element10,3,3);
+        var morph3 = dom.createMorphAt(element10,7,7);
+        var morph4 = dom.createMorphAt(dom.childAt(element9, [3]),3,3);
         var morph5 = dom.createMorphAt(fragment,8,8,contextualElement);
         inline(env, morph0, context, "t-tr", ["profile.title"], {});
         inline(env, morph1, context, "t-tr", ["profile.subtitle"], {});
@@ -39820,7 +39881,7 @@ catch(err) {
 if (runningTests) {
   require("CloudControl/tests/test-helper");
 } else {
-  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.8f2dcf47"});
+  require("CloudControl/app")["default"].create({"name":"CloudControl","version":"0.0.0.16cb90fd"});
 }
 
 /* jshint ignore:end */

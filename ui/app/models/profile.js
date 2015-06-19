@@ -6,12 +6,6 @@ var Profile = DS.Model.extend({
     user: DS.belongsTo('user'),
     verified: DS.attr('Boolean', {
         defaultValue: false
-    }),
-    updated: DS.attr('Date', {
-        defaultValue: new Date()
-    }),
-    created: DS.attr('Date', {
-        defaultValue: new Date()
     })
 });
 

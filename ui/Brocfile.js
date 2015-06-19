@@ -59,6 +59,9 @@ app.import( AdminLTE_PATH + '/bootstrap/js/bootstrap.min.js');
 // jQuery UI 1.11.4
 app.import( BOWER_COMPONENT_PATH + '/jquery-ui/jquery-ui.min.js');
 
+// bootstrap validation
+app.import( BOWER_COMPONENT_PATH + '/bootstrap-validator/dist/validator.min.js');
+
 // raphael/2.1.0
 // app.import( AdminLTE_PATH + '/plugins/raphael/raphael-min.js');
 

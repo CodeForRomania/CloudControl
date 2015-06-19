@@ -43,6 +43,7 @@ Router.map(function() {
   });
 
   this.route('profile');
+  //this.route('updateProfile');
 });
 
 Ember.Route.reopen({

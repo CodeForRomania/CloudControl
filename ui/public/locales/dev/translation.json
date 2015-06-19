@@ -32,7 +32,9 @@
         "settings": "Settings",
         "linkedAccounts": "Linked accounts",
         "email": "Email address",
-        "password": "Password"
+        "password": "Password",
+        "passwordValidateNrChars": "At least 8 chars",
+        "passwordDontMatch": "The password do not match"
     },
     "sidebar": {
         "mainNavigation": "MAIN NAVIGATION",
